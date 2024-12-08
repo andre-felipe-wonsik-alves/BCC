@@ -4,7 +4,7 @@
 int len(char string[])
 {
     int contador = 0;
-    for (int i = 0; string[i] != '\0', i++)
+    for (int i = 0; string[i] != '\0'; i++)
     {
         contador++;
     }
