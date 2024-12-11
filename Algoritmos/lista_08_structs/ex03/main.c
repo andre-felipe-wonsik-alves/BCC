@@ -27,7 +27,7 @@ float distance_vector(int n, Point v[])
 
 int main()
 {
-    Point v[3] = {{-2.0f, 7.5f}, {-1.0f, 8.5f}, {-2.0f, 7.5f}};
+    Point v[3] = {{-2.0f, 7.5f}, {-2.0f, 7.5f}, {-2.0f, 7.5f}};
 
     distance_vector(3, v);
     return 0;

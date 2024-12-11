@@ -18,7 +18,7 @@ int get_hamming_distance(const char *str1, const char *str2)
 
 int main()
 {
-    int dist = get_hamming_distance("banana", "cabana");
+    int dist = get_hamming_distance("banana", "cacaba");
     printf("Hamming: %d\n", dist);
     return 0;
 }
