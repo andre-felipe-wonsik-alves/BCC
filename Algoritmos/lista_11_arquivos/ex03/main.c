@@ -26,6 +26,6 @@ int main()
 {
     int res = print_content("../../notas_de_aula/arquivo.txt");
 
-    printf("%d\n", res);
+    printf("\nRetorno da funcao: %d\n", res);
     return 0;
 }
