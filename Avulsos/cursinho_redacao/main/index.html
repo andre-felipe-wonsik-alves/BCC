@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora redação</title>
+    <style>
+      .selectComp {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Calculadora</h1>
+
+    <div>
+      <label for="name">Nome do aluno</label>
+      <input type="text" placeholder="Digte aqui..." id="name" required />
+    </div>
+
+    <hr />
+    <div id="studentCountDisplay"></div>
+    <form id="formComp">
+      <div>
+        <h2>Competência 1:</h2>
+        <p>Demonstrar domínio da norma padrão da língua portuguesa</p>
+        <div class="selectComp">
+          <div>
+            <input type="radio" name="comp1" value="0" />
+            <label for="comp1">0</label>
+          </div>
+          <div>
+            <input type="radio" name="comp1" value="20" />
+            <label for="comp1">20</label>
+          </div>
+          <div>
+            <input type="radio" name="comp1" value="40" />
+            <label for="comp1">40</label>
+          </div>
+          <div>
+            <input type="radio" name="comp1" value="60" />
+            <label for="comp1">60</label>
+          </div>
+          <div>
+            <input type="radio" name="comp1" value="80" />
+            <label for="comp1">80</label>
+          </div>
+          <div>
+            <input type="radio" name="comp1" value="100" />
+            <label for="comp1">100</label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2>Competência 2:</h2>
+        <p>Demonstrar domínio da norma padrão da língua portuguesa</p>
+        <div class="selectComp">
+          <div>
+            <input type="radio" name="comp2" value="0" />
+            <label for="comp2">0</label>
+          </div>
+          <div>
+            <input type="radio" name="comp2" value="20" />
+            <label for="comp2">20</label>
+          </div>
+          <div>
+            <input type="radio" name="comp2" value="40" />
+            <label for="comp2">40</label>
+          </div>
+          <div>
+            <input type="radio" name="comp2" value="60" />
+            <label for="comp2">60</label>
+          </div>
+          <div>
+            <input type="radio" name="comp2" value="80" />
+            <label for="comp2">80</label>
+          </div>
+          <div>
+            <input type="radio" name="comp2" value="100" />
+            <label for="comp2">100</label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2>Competência 3:</h2>
+        <p>Demonstrar domínio da norma padrão da língua portuguesa</p>
+        <div class="selectComp">
+          <div>
+            <input type="radio" name="comp3" value="0" />
+            <label for="comp3">0</label>
+          </div>
+          <div>
+            <input type="radio" name="comp3" value="20" />
+            <label for="comp3">20</label>
+          </div>
+          <div>
+            <input type="radio" name="comp3" value="40" />
+            <label for="comp3">40</label>
+          </div>
+          <div>
+            <input type="radio" name="comp3" value="60" />
+            <label for="comp3">60</label>
+          </div>
+          <div>
+            <input type="radio" name="comp3" value="80" />
+            <label for="comp3">80</label>
+          </div>
+          <div>
+            <input type="radio" name="comp3" value="100" />
+            <label for="comp3">100</label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2>Competência 4:</h2>
+        <p>Demonstrar domínio da norma padrão da língua portuguesa</p>
+        <div class="selectComp">
+          <div>
+            <input type="radio" name="comp4" value="0" />
+            <label for="comp4">0</label>
+          </div>
+          <div>
+            <input type="radio" name="comp4" value="20" />
+            <label for="comp4">20</label>
+          </div>
+          <div>
+            <input type="radio" name="comp4" value="40" />
+            <label for="comp4">40</label>
+          </div>
+          <div>
+            <input type="radio" name="comp4" value="60" />
+            <label for="comp4">60</label>
+          </div>
+          <div>
+            <input type="radio" name="comp4" value="80" />
+            <label for="comp4">80</label>
+          </div>
+          <div>
+            <input type="radio" name="comp4" value="100" />
+            <label for="comp4">100</label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h2>Competência 5:</h2>
+        <p>Demonstrar domínio da norma padrão da língua portuguesa</p>
+        <div class="selectComp">
+          <div>
+            <input type="radio" name="comp5" value="0" />
+            <label for="comp5">0</label>
+          </div>
+          <div>
+            <input type="radio" name="comp5" value="20" />
+            <label for="comp5">20</label>
+          </div>
+          <div>
+            <input type="radio" name="comp5" value="40" />
+            <label for="comp5">40</label>
+          </div>
+          <div>
+            <input type="radio" name="comp5" value="60" />
+            <label for="comp5">60</label>
+          </div>
+          <div>
+            <input type="radio" name="comp5" value="80" />
+            <label for="comp5">80</label>
+          </div>
+          <div>
+            <input type="radio" name="comp5" value="100" />
+            <label for="comp5">100</label>
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        onclick="return alert('Você deseja mesmo enviar uma nota?')"
+      >
+        Enviar
+      </button>
+    </form>
+    <script src="./formHandler.js"></script>
+  </body>
+</html>
