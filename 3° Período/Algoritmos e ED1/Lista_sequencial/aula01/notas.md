@@ -19,7 +19,7 @@
 
 ---
 
-## Lista sequencial
+## Lista sequencial (olhar o código)
 
 - É, basicamente, um array dinâmico
   - Dinâmico em relação ao tamanho
