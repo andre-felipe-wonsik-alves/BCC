@@ -4,42 +4,80 @@
 
 using namespace std;
 
-ListSeq::ListSeq(int _capacity){
+ListSeq::ListSeq(int _capacity)
+{
     data = new int[_capacity];
     capacity = _capacity;
 };
 
-bool ListSeq::add(int elem){
-    if(size < capacity){
+bool ListSeq::add(int elem)
+{
+    if (size < capacity)
+    {
         data[size++] = elem;
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }
 
-bool ListSeq::isEmpty(){
+bool ListSeq::isEmpty()
+{
     return size == 0;
 }
 
-bool ListSeq::isFull(){
+bool ListSeq::isFull()
+{
     return size == capacity;
 }
 
-bool ListSeq::print(){
+void ListSeq::print()
+{
     for (int i = 0; i < size; i++)
     {
-        cout<<data[i]<<" ";
+        cout << data[i] << " ";
     }
     cout << endl;
-    
 }
 
-int main(){
-    ListSeq ls(5);
-    ls.add(1);
-    ls.add(3);
-    ls.add(4);
-    ls.add(5);
-    ls.add(6);
+bool ListSeq::resize()
+{
+    int *_data = new int[++capacity];
+
+    for (int i = 0; i < size; i++)
+    {
+        _data[i] = data[i];
+    }
+
+    destroy();
+
+    data = _data;
+    return true;
+}
+
+void ListSeq::destroy()
+{
+    delete[] data;
+}
+
+bool ListSeq::remove()
+{
+    if (isEmpty())
+        return 0;
+    size--;
+    return 1;
+}
+
+void ListSeq::removeAt(int pos)
+{
+    if (isEmpty() || pos >= size) return;
+    if(pos < (size-1)) remove();
+
+    for (int i = pos; i < size; i++)
+    {
+        data[i] = data[i+1];
+    }
+    remove();
 }

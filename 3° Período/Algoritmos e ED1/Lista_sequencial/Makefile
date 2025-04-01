@@ -1,5 +1,6 @@
 all:
-	g++ -c list_seq.cpp
-	g++ -c list_seq_main.cpp
-	g++ list_seq.o list_seq_main.o -o main
-	
+	g++ -c lista_sequencial.cpp
+	g++ -c lista_sequencial_main.cpp
+	g++ lista_sequencial.o lista_sequencial_main.o -o main
+clean:
+	rm lista_sequencial.o lista_sequencial_main.o main

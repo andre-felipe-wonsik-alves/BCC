@@ -13,7 +13,7 @@ public:
 
     void destroy();
     bool resize();
-    bool print();
+    void print();
     int find(int elem);
     int get(int pos);
     bool isEmpty();
@@ -22,6 +22,6 @@ public:
     bool add(int elem);
     bool remove();
     void inser(int elem, int pos);
-    bool removeAt(int pos);
+    void removeAt(int pos);
     bool addSorted(int elem);
 };
