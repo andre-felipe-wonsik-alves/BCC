@@ -4,66 +4,85 @@
 
 using namespace std;
 
-void LinkedList::push_front(int elem){
-
+LinkedList::LinkedList()
+{
+    this->head = nullptr;
 }
 
-bool LinkedList::pop(){
-
+void LinkedList::push_front(int elem)
+{
+    Node *no = new Node{elem, nullptr};
+    if (!no)
+    {
+        return;
+    }
+    no->next = this->head;
 }
 
-int LinkedList::get(int pos){
-
+bool LinkedList::pop()
+{
 }
 
-void LinkedList::print(){
-
+int LinkedList::get(int pos)
+{
 }
 
-int LinkedList::size(){
-
+void LinkedList::print()
+{
 }
 
-bool LinkedList::empty(){
-
+int LinkedList::size()
+{
 }
 
-void LinkedList::push_back(int elem){
-
+bool LinkedList::empty()
+{
 }
 
-bool LinkedList::pop_back(){
-
+void LinkedList::push_back(int elem)
+{
 }
 
-Node* LinkedList::find(int key) {
+bool LinkedList::pop_back()
+{
+}
+
+Node *LinkedList::find(int key)
+{
     return nullptr;
 }
 
-bool LinkedList::insert_after(int key, Node* pos) {
+bool LinkedList::insert_after(int key, Node *pos)
+{
     return true;
 }
 
-bool LinkedList::remove_after(Node* pos) {
+bool LinkedList::remove_after(Node *pos)
+{
     return true;
 }
 
-bool LinkedList::insert(int pos) {
+bool LinkedList::insert(int pos)
+{
     return true;
 }
 
-bool LinkedList::remove(int pos) {
+bool LinkedList::remove(int pos)
+{
     return true;
 }
 
-bool LinkedList::remove(int key) {
+bool LinkedList::remove(int key)
+{
     return true;
 }
 
-bool LinkedList::pop_back() {
+bool LinkedList::pop_back()
+{
     return true;
 }
 
-bool LinkedList::empty() {
+bool LinkedList::empty()
+{
     return true;
 }
