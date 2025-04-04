@@ -81,3 +81,39 @@ void ListSeq::removeAt(int pos)
     }
     remove();
 }
+
+int ListSeq::find(int elem){
+    for (int i = 0; i < size; i++)
+    {
+        if(elem == data[i]){
+            return i;
+        }
+    }
+    return -1;
+}
+
+int ListSeq::get(int pos){
+    if(pos >= size) {
+        return -1;
+    }
+    return data[pos];
+}
+
+
+// ! ERRADO
+void ListSeq::insert(int elem, int pos){
+    if(isFull()){
+        return;
+    }
+    
+    int temp = data[pos];
+    data[pos] = elem;
+
+    for (int i = pos; i < size; i++)
+    {
+        data[i] = data[i+1];
+    }
+    
+
+
+}

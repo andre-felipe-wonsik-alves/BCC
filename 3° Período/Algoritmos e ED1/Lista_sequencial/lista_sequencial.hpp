@@ -21,7 +21,7 @@ public:
 
     bool add(int elem);
     bool remove();
-    void inser(int elem, int pos);
+    void insert(int elem, int pos);
     void removeAt(int pos);
     bool addSorted(int elem);
 };
