@@ -24,15 +24,17 @@ public:
     bool empty();
     void push_back(int elem);
     bool pop_back();
+    bool pop_front();
 
     Node *find(int key);
 
-    bool insert_after(int key, Node *pos);
+    void insert_after(int key, Node *pos);
     bool remove_after(Node *pos);
 
-    bool insert(int pos);
+    bool insert(int key, int pos);
     bool remove(int pos);
     bool remove(int key);
+    bool equals(LinkedList* outra);
 
     bool insert_sorted(int key);
 
