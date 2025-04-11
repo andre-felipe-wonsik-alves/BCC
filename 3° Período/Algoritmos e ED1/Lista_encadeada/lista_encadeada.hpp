@@ -32,11 +32,10 @@ public:
     bool remove_after(Node *pos);
 
     bool insert(int key, int pos);
-    bool remove(int pos);
-    bool remove(int key);
+    bool remove_pos(int pos);
+    bool remove_key(int key);
     bool equals(LinkedList* outra);
 
     bool insert_sorted(int key);
 
-    bool equals(LinkedList *other);
 };
