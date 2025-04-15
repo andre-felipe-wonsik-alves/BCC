@@ -4,3 +4,11 @@
 
 using namespace std;
 
+LinkedList2::LinkedList2()
+{
+    this->head = nullptr;
+}
+
+LinkedList2::~LinkedList2()
+{
+}

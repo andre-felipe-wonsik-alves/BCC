@@ -8,15 +8,15 @@ public:
     Node* prev;
 };
 
-class LinkedList2
+class DoubleCircularList
 {
 private:
     Node *head;
     Node *tail;
 
 public:
-    LinkedList2();
-    ~LinkedList2();
+    DoubleCircularList();
+    ~DoubleCircularList();
 
     void push_front(int elem);
     void push_back(int elem);
@@ -34,7 +34,7 @@ public:
     bool remove_pos(int pos);
     bool remove_key(int key);
 
-    bool equals(LinkedList2* outra);
+    bool equals(DoubleCircularList* outra);
     void print();
     int size();
     bool empty();

@@ -5,18 +5,17 @@ class Node
 public:
     int key;
     Node *next;
-    Node* prev;
 };
 
-class LinkedList2
+class CircularList
 {
 private:
     Node *head;
     Node *tail;
 
 public:
-    LinkedList2();
-    ~LinkedList2();
+    CircularList();
+    ~CircularList();
 
     void push_front(int elem);
     void push_back(int elem);
@@ -34,7 +33,7 @@ public:
     bool remove_pos(int pos);
     bool remove_key(int key);
 
-    bool equals(LinkedList2* outra);
+    bool equals(CircularList* outra);
     void print();
     int size();
     bool empty();
