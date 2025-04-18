@@ -72,48 +72,82 @@ bool ListSeq::remove()
 
 void ListSeq::removeAt(int pos)
 {
-    if (isEmpty() || pos >= size) return;
-    if(pos < (size-1)) remove();
+    if (isEmpty() || pos >= size)
+        return;
+    if (pos < (size - 1))
+        remove();
 
     for (int i = pos; i < size; i++)
     {
-        data[i] = data[i+1];
+        data[i] = data[i + 1];
     }
     remove();
 }
 
-int ListSeq::find(int elem){
+int ListSeq::find(int elem)
+{
     for (int i = 0; i < size; i++)
     {
-        if(elem == data[i]){
+        if (elem == data[i])
+        {
             return i;
         }
     }
     return -1;
 }
 
-int ListSeq::get(int pos){
-    if(pos >= size) {
+int ListSeq::get(int pos)
+{
+    if (pos >= size)
+    {
         return -1;
     }
     return data[pos];
 }
 
+// ? LISTA
 
-// ! ERRADO
-void ListSeq::insert(int elem, int pos){
-    if(isFull()){
-        return;
-    }
-    
-    int temp = data[pos];
-    data[pos] = elem;
+int ListSeq::list_get_available()
+{
+    return capacity - size;
+}
 
-    for (int i = pos; i < size; i++)
+void ListSeq::list_clear()
+{
+    while (size)
     {
-        data[i] = data[i+1];
+        size--;
     }
-    
+}
 
+void ListSeq::list_remove_last(int n)
+{
+    int contador = 0;
+    for (int i = size; i > 0; i--)
+    {
+        if (contador == n)
+            return;
+        contador++;
+        size--;
+    }
+}
 
+void ListSeq::list_print_reverse()
+{
+
+    cout << "Printando lista ao contrário:" << endl;
+    for (int i = size - 1; i >= 0; i--)
+    {
+        cout << data[i] << " ";
+    }
+}
+
+void ListSeq::list_add(int n, int *vet)
+{
+    int aux = 0;
+    while (size < capacity && aux < n)
+    {
+        data[size++] = vet[aux];
+        aux++;
+    }
 }
