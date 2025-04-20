@@ -34,7 +34,7 @@ public:
     int list_is_sorted();
     void list_reverse();
     int list_equal(ListSeq *outra);
-    ListSeq *list_from_vector(int n, int *vet);
     ListSeq *list_copy();
     int list_concat(ListSeq *list2);
 };
+ListSeq *list_from_vector(int n, int *vet);
