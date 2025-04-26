@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 class Node
 {
@@ -34,8 +35,9 @@ public:
     bool insert(int key, int pos);
     bool remove_pos(int pos);
     bool remove_key(int key);
-    bool equals(LinkedList* outra);
+    bool equals(LinkedList *outra);
 
     bool insert_sorted(int key);
-
+    void print_last();
+    bool is_sorted();
 };
