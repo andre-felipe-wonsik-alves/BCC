@@ -128,8 +128,83 @@ bool LinkedList::equals(LinkedList *outra)
     return true;
 }
 
-void LinkedList::push_back(int elem)
+bool LinkedList::push_back(int n, int *vec)
 {
+    try
+    {
+        Node *aux = this->head;
+
+        while (aux->next)
+        {
+            aux = aux->next;
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            aux->next = new Node{vec[i], nullptr};
+            aux = aux->next;
+        }
+        return true;
+    }
+    catch (const std::exception &e)
+    {
+        return false;
+    }
+}
+
+bool LinkedList::insert_sorted(int key)
+{
+    Node *aux = this->head;
+    Node *novo = new Node{key, nullptr};
+
+    while (aux->next->key <= key)
+    {
+        aux = aux->next;
+    }
+
+    novo->next = aux->next;
+    aux->next = novo;
+
+    return true;
+}
+
+LinkedList *LinkedList::deep_copy()
+{
+    LinkedList *novaLista = new LinkedList();
+
+    if (!this->head)
+    {
+        return novaLista;
+    }
+
+    Node *aux = this->head;
+
+    while (aux)
+    {
+        novaLista->insert_back(aux->key);
+        aux = aux->next;
+    }
+
+    return novaLista;
+}
+
+void LinkedList::insert_back(int key)
+{
+    Node *novo = new Node{key, nullptr};
+
+    if (!this->head)
+    {
+        this->head = novo;
+        return;
+    }
+
+    Node *aux = this->head;
+    while (aux->next)
+    {
+        aux = aux->next;
+    }
+
+    aux->next = novo;
 }
 
 bool LinkedList::pop_back()

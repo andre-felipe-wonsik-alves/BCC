@@ -23,7 +23,7 @@ public:
     void print();
     int size();
     bool empty();
-    void push_back(int elem);
+    bool push_back(int n, int *vec);
     bool pop_back();
     bool pop_front();
 
@@ -31,6 +31,7 @@ public:
 
     void insert_after(int key, Node *pos);
     bool remove_after(Node *pos);
+    void insert_back(int key);
 
     bool insert(int key, int pos);
     bool remove_pos(int pos);
@@ -40,4 +41,5 @@ public:
     bool insert_sorted(int key);
     void print_last();
     bool is_sorted();
+    LinkedList *deep_copy();
 };

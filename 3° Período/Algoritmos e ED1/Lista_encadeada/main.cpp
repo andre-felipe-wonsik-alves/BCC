@@ -5,6 +5,7 @@
 int main()
 {
     LinkedList *list = new LinkedList();
+    int v1[5] = {1, 2, 3, 4, 6};
 
     list->push_front(3);
     list->push_front(2);
@@ -16,7 +17,13 @@ int main()
     int pos = list->get(1);
 
     list->print_last();
-    bool isSorted = list->is_sorted();
-    cout << isSorted << endl;
+
+    list->push_back(5, v1);
+    list->insert_sorted(5);
+    list->print();
+
+    LinkedList *novaLista = list->deep_copy();
+    novaLista->print();
+
     delete list;
 }

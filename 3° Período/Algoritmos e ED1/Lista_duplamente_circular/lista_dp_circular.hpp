@@ -1,43 +1,44 @@
-#include <iostream>
+#pragma once
 
 class Node
 {
 public:
     int key;
     Node *next;
-    Node* prev;
+    Node *prev;
 };
 
-class DoubleCircularList
+class CircleDoubleList
 {
 private:
     Node *head;
     Node *tail;
 
 public:
-    DoubleCircularList();
-    ~DoubleCircularList();
+    CircleDoubleList();
+    ~CircleDoubleList();
 
-    void push_front(int elem);
-    void push_back(int elem);
-    bool pop();
-    bool pop_back();
+    bool push_front(int key);
     bool pop_front();
-    int get(int pos);
 
-
-    void insert_after(int key, Node *pos);
-    bool insert(int key, int pos);
-    bool insert_sorted(int key);
-
-    bool remove_after(Node *pos);
-    bool remove_pos(int pos);
-    bool remove_key(int key);
-
-    bool equals(DoubleCircularList* outra);
     void print();
     int size();
     bool empty();
+
+    bool push_back(int key);
+    bool pop_back();
+
+    int get(int pos);
     Node *find(int key);
 
+    void insert_after(int key, Node *pos);
+    bool remove_after(Node *pos);
+
+    bool insert(int pos, int key);
+    bool remove_at(int pos);
+    bool remove(int key);
+
+    bool insert_sorted(int key);
+
+    bool equals(CircleDoubleList *other);
 };
