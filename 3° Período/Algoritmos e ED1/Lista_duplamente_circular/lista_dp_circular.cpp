@@ -92,6 +92,19 @@ void CircleDoubleList::print()
     cout << endl;
 }
 
+// void CircleDoubleList::print()
+// {
+//     Node *aux = this->head;
+
+//     cout << "PRINT:" << endl;
+//     while (aux != this->tail)
+//     {
+//         cout << aux->key << " ";
+//         aux = aux->next;
+//     }
+//     cout << aux->key << " " << endl;
+// }
+
 int CircleDoubleList::size()
 {
     if (!this->head)
@@ -134,42 +147,92 @@ bool CircleDoubleList::remove_after(Node *pos)
     return true;
 }
 
+// bool CircleDoubleList::insert(int pos, int key)
+// {
+//     if (pos < 0 || pos > this->size())
+//     {
+//         return false; // posição inválida
+//     }
+//     if (pos == 0)
+//     {
+//         return this->push_front(key);
+//     }
+//     Node *current = this->head;
+//     for (int i = 0; i < pos - 1; i++)
+//     {
+//         current = current->next;
+//     }
+//     Node *novo = new Node{key, current->next};
+//     current->next = novo;
+//     novo->prev = current; // atualiza o ponteiro prev do novo nó
+//     if (novo->next)
+//     {
+//         novo->next->prev = novo; // atualiza o ponteiro prev do próximo nó
+//     }
+//     else
+//     {
+//         this->tail = novo; // atualiza o tail se necessário
+//     }
+//     return true;
+// }
+
 bool CircleDoubleList::insert(int pos, int key)
 {
     if (pos < 0 || pos > this->size())
-    {
-        return false; // posição inválida
-    }
+        return false;
     if (pos == 0)
-    {
         return this->push_front(key);
-    }
-    Node *current = this->head;
+
+    Node *atual = this->head;
+
     for (int i = 0; i < pos - 1; i++)
     {
-        current = current->next;
+        atual = atual->next;
     }
-    Node *novo = new Node{key, current->next};
-    current->next = novo;
-    novo->prev = current; // atualiza o ponteiro prev do novo nó
-    if (novo->next)
+
+    atual->next = new Node{key, atual->next};
+    if (atual->next)
     {
-        novo->next->prev = novo; // atualiza o ponteiro prev do próximo nó
+        atual->next->prev = atual;
     }
     else
     {
-        this->tail = novo; // atualiza o tail se necessário
+        this->tail = atual;
     }
+
+    if (atual->next->next)
+        atual->next->next->prev = atual->next;
+
     return true;
 }
 
 bool CircleDoubleList::remove_at(int pos)
 {
+    Node *atual = this->head;
+
+    for (int i = 0; i < pos - 1; i++)
+    {
+        atual = atual->next;
+    }
+    atual->next = atual->next->next;
+    atual->next->prev = atual;
+
     return true;
 }
 
 bool CircleDoubleList::remove(int key)
 {
+    Node *atual = this->head;
+
+    while (atual->key != key)
+    {
+        atual = atual->next;
+    }
+
+    atual = atual->prev;
+    atual->next = atual->next->next;
+    atual->next->prev = atual;
+
     return true;
 }
 

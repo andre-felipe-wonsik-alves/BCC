@@ -1,20 +1,27 @@
 #include <stdio.h>
-#include "lista_circular.hpp"
+#include "lista_dp_circular.hpp"
 
-int main(){
-    CircularList* list = new CircularList();
+int main()
+{
+    CircleDoubleList *list = new CircleDoubleList();
 
     list->push_front(1);
     list->push_front(2);
     list->push_front(3);
     list->push_front(4);
-    list->push_front(5);
 
     list->print();
 
-    list->find(4);
-    list->get(2);
+    int res = list->insert(2, 300);
+
     list->print();
 
-    delete list;    
+    res = list->remove_at(1);
+
+    list->print();
+
+    res = list->remove(3);
+    list->print();
+
+    delete list;
 }

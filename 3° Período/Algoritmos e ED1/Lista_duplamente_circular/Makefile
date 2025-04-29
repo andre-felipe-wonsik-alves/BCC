@@ -1,6 +1,6 @@
 all:
-	g++ -c lista_circular.cpp
+	g++ -c lista_dp_circular.cpp
 	g++ -c main.cpp
-	g++ lista_circular.o main.o -o main
+	g++ lista_dp_circular.o main.o -o main
 clean:
-	rm lista_circular.o main.o main
+	rm lista_dp_circular.o main.o main
