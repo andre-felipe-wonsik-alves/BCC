@@ -20,4 +20,5 @@ public:
     bool check_posfix(string expression);
     float calc_infix(string expression);
     void print_vector(const vector<string> &vec);
+    string posfix_to_infix(string expression);
 };
