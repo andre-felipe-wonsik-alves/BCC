@@ -268,3 +268,60 @@ bool LinkedList::remove_key(int key)
 {
     return true;
 }
+
+LinkedList *LinkedList::concat(LinkedList *list2)
+{
+    LinkedList *result = new LinkedList();
+
+    Node *current = this->head;
+    while (current != nullptr)
+    {
+        result->insert_back(current->key);
+        current = current->next;
+    }
+
+    current = list2->head;
+    while (current != nullptr)
+    {
+        result->insert_back(current->key);
+        current = current->next;
+    }
+
+    return result;
+}
+
+LinkedList *LinkedList::merge(LinkedList *list2)
+{
+    LinkedList *result = new LinkedList();
+
+    Node *p1 = this->head;
+    Node *p2 = list2->head;
+
+    while (p1 != nullptr && p2 != nullptr)
+    {
+        if (p1->key <= p2->key)
+        {
+            result->insert_back(p1->key);
+            p1 = p1->next;
+        }
+        else
+        {
+            result->insert_back(p2->key);
+            p2 = p2->next;
+        }
+    }
+
+    while (p1 != nullptr)
+    {
+        result->insert_back(p1->key);
+        p1 = p1->next;
+    }
+
+    while (p2 != nullptr)
+    {
+        result->insert_back(p2->key);
+        p2 = p2->next;
+    }
+
+    return result;
+}

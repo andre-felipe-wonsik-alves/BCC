@@ -41,5 +41,7 @@ public:
     bool insert_sorted(int key);
     void print_last();
     bool is_sorted();
+    LinkedList *concat(LinkedList *list2);
     LinkedList *deep_copy();
+    LinkedList *merge(LinkedList *list2);
 };
