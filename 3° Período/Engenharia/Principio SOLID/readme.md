@@ -11,7 +11,7 @@ Os 4 princípios escolhidos foram:
 ## Responsabilidade única
 Fazer com que cada parte do código tenha apenas **uma única** responsabilidade ou ideia a ser desenvolvida.
 
-Essa função está com duas responsabilidades (calcular e imprimir), por exemplo:
+Por exemplo, esta função está com duas responsabilidades (calcular e imprimir):
 ```java
 class Disciplina{
 	void calculaIndiceDesistencia(){
@@ -45,20 +45,17 @@ class B {
 	}
 }
 ```
+> Nesse caso, a classe A depende inteiramente de B. Isso diminui a flexibilidade do código.
 
 **Usar isto:**
 [exemplos/inversaoDependencias.java](exemplos/inversaoDependencias.java)
+
+> Agora fazemos a classe B depender de uma interface e que A fique livre dessa dependência direta.
 
 ---
 
 ## Princípio do Aberto/Fechado
  Uma classe deve estar **fechada** para modificações, mas **aberta** para extensões
-
-- Suponha que você vai implementar uma classe
-- Usuários ou clientes vão querer usar a classe (óbvio!)
-- Mas vão querer também customizar, parametrizar, configurar, flexibilizar e estender a classe!
-- Você deve se antecipar e tornar possível tais extensões
-- Mas sem que os clientes tenham que alterar o código da classe
 
 Ao invés disto:
 ```java
@@ -68,6 +65,7 @@ void imprimeDataContratacao(Funcionario func) {
    System.out.println(msg);
 } 
 ```
+> Aqui, percebe-se que esse método depende de uma formatação da data de contratação
 
 **Usar isto:**
 [exemplos/abertoFechado.java](exemplos/abertoFechado.java)
@@ -85,8 +83,11 @@ void sendMail(ContaBancaria conta, String msg) {
    "Envia mail"
  }
 ```
+> Aqui, há um encadeamento implícito; seria o mesmo que usar String endereco = conta.get().getMailAddress()
 
 **Usar isto**:
 [exemplos/demeter.java](exemplos/demeter.java)
+
+> Dessa maneira, reduzimos a quantidade de encadeamentos
 
 ---
