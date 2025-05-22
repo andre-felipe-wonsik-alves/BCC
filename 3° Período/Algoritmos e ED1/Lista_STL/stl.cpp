@@ -245,9 +245,139 @@ bool is_number(const string &token)
     return true;
 }
 
+float performOperation(float operand1, float operand2, char op)
+{
+    switch (op)
+    {
+    case '+':
+        return operand1 + operand2;
+    case '-':
+        return operand1 - operand2;
+    case '*':
+        return operand1 * operand2;
+    case '/':
+        if (operand2 == 0)
+        {
+            cerr << "Erro: divisão por zero!" << endl;
+            return 0;
+        }
+        return operand1 / operand2;
+    default:
+        return 0;
+    }
+}
+
 bool is_operator(const string &token)
 {
     return token == "+" || token == "-" || token == "*" || token == "/";
+}
+
+bool isOperatorChar(char c)
+{
+    return (c == '+' || c == '-' || c == '*' || c == '/');
+}
+
+float ListaSTL::calc_infix(string expression)
+{
+    stack<float> operands; // Pilha de operandos
+    stack<char> operators; // Pilha de operadores
+
+    string token;
+
+    for (size_t i = 0; i < expression.length(); i++)
+    {
+        if (expression[i] == ' ')
+        {
+            continue;
+        }
+
+        if (isdigit(expression[i]) || (expression[i] == '-' && (i == 0 || expression[i - 1] == '(' || expression[i - 1] == ' ')))
+        {
+            token = "";
+
+            while (i < expression.length() &&
+                   (isdigit(expression[i]) || expression[i] == '.' ||
+                    (expression[i] == '-' && token.empty())))
+            {
+                token += expression[i];
+                i++;
+            }
+            i--; // Voltar um caractere, pois incrementamos demais
+
+            float num = stof(token);
+            operands.push(num);
+        }
+        else if (expression[i] == '(')
+        {
+            operators.push('(');
+        }
+        else if (isOperatorChar(expression[i]))
+        {
+            char op = expression[i];
+            while (!operators.empty() && operators.top() != '(' &&
+                   ((operators.top() == '*' || operators.top() == '/') ||
+                    (op != '*' && op != '/')))
+            {
+
+                float operand2 = operands.top();
+                operands.pop();
+                float operand1 = operands.top();
+                operands.pop();
+                char currentOp = operators.top();
+                operators.pop();
+
+                float result = performOperation(operand1, operand2, currentOp);
+                operands.push(result);
+            }
+
+            operators.push(op);
+        }
+        else if (expression[i] == ')')
+        {
+            while (!operators.empty() && operators.top() != '(')
+            {
+                float operand2 = operands.top();
+                operands.pop();
+                float operand1 = operands.top();
+                operands.pop();
+                char op = operators.top();
+                operators.pop();
+
+                float result = performOperation(operand1, operand2, op);
+                operands.push(result);
+            }
+
+            if (!operators.empty() && operators.top() == '(')
+            {
+                operators.pop();
+            }
+        }
+    }
+
+    // Processar qualquer operação restante na pilha
+    while (!operators.empty())
+    {
+        float operand2 = operands.top();
+        operands.pop();
+        float operand1 = operands.top();
+        operands.pop();
+        char op = operators.top();
+        operators.pop();
+
+        float result = performOperation(operand1, operand2, op);
+        operands.push(result);
+    }
+
+    // O resultado final estará no topo da pilha de operandos
+    if (!operands.empty())
+    {
+        return operands.top();
+    }
+    else
+    {
+        cerr << "Erro: expressão inválida!" << endl;
+        return 0;
+    }
 }
 
 string ListaSTL::posfix_to_infix(string expression)

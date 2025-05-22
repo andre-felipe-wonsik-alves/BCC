@@ -57,5 +57,11 @@ int main()
 
     string result = listaSTL->posfix_to_infix("6 9 + 3 / 6 4 - *");
     cout << "Expressão infix: " << result << endl;
+
+    string expression = "( ( ( 6 + 9 ) / 3 ) * ( 6 - 4 ) )";
+    float result2 = listaSTL->calc_infix(expression);
+    cout << "Expressão: " << expression << endl;
+    cout << "Resultado: " << result << endl;
+
     return 0;
 }
