@@ -100,3 +100,6 @@ void sendMail(ContaBancaria conta, String msg) {
 > Dessa maneira, reduzimos a quantidade de encadeamentos
 
 ---
+
+# Referências
+[https://danielwisky.com.br/2023-08-08-principio-segregacao-interface/](https://danielwisky.com.br/2023-08-08-principio-segregacao-interface/)
