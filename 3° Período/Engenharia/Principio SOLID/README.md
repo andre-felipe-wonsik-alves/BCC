@@ -3,7 +3,7 @@
 Os 4 princípios escolhidos foram:
 1. Responsabilidade única
 2. Inversão de dependência
-3. Princípio do Aberto/Fechado
+3. Princípio da segregação de interfaces
 4. Demeter
 
 ---
@@ -54,22 +54,31 @@ class B {
 
 ---
 
-## Princípio do Aberto/Fechado
- Uma classe deve estar **fechada** para modificações, mas **aberta** para extensões
+## Princípio da segregação de interfaces
+As interfaces de um sistema devem ser divididas em interfaces menores e mais específicas, em vez de uma única interface grande.
 
 Ao invés disto:
 ```java
-void imprimeDataContratacao(Funcionario func) {
-   Date data = func.getDataContratacao();
-   String msg = data.format();
-   System.out.println(msg);
-} 
+ interface Animal {
+     void comer();
+     void dormir();
+     void voar();
+	 void cavar()
+ }
 ```
-> Aqui, percebe-se que esse método depende de uma formatação da data de contratação
+> Aqui, percebe-se que "Animal" possui várias responsabilidades
 
 **Usar isto:**
-[exemplos/abertoFechado.java](exemplos/abertoFechado.java)
+[exemplos/interfaces.java](exemplos/interfaces.java)
 
+Assim, sua implementação fica mais clara e objetiva. Por exemplo:
+```java
+	class Arara implements Animal, Ave{...}
+
+	class Gato implements Animal {...}
+
+	class Rato implements Animal, Roedor {...}
+```
 ---
 
 ## Demeter
