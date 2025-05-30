@@ -45,17 +45,15 @@ void create_ordered_file(int file_size)
 
 void create_unordered_file(int file_size)
 {
+    vector<int> dados(file_size);
     fstream file;
-    file.open("./dados/nao_ordenado_" + to_string(file_size)+ ".bin", ios::binary | ios::out);
 
-    int random = rand() % 9999;
-
-    for (int i = file_size; i >= 0; i--)
-    {
-        file.write(reinterpret_cast<char*>(&i), sizeof(int));
-        random = rand() % 9999;
+    for(int& dado : dados){
+        dado = rand() % 9999;
     }
 
+    file.open("./dados/nao_ordenado_" + to_string(file_size)+ ".bin", ios::binary | ios::out);
+    file.write(reinterpret_cast<char*>(dados.data()), sizeof(int) * dados.size());
     file.close();
 }
 
@@ -65,8 +63,10 @@ int main()
     int pequeno = 10000;
     int medio = 50000;
     int grande = 120000;
-    // create_unordered_file(100);    
-    create_ordered_file(100);
+
+
+    create_unordered_file(100);    
+    // create_ordered_file(100);
 
     return 0;
 }
