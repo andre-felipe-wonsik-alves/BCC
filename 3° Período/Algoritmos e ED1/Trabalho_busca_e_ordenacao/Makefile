@@ -1,8 +1,13 @@
-all:
-	g++ -c ordenacao.cpp
-	g++ -c gerador_dados.cpp
-	g++ -c main.cpp
-	g++ ordenacao.o main.o -o main
-	g++ gerador_dados.o main.o -o main
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall
+
+TARGET = programa
+SRC = main.cpp
+
+all: $(TARGET)
+
+$(TARGET): $(SRC)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(SRC)
+
 clean:
-	rm lista_circular.o main.o main
+	rm -f $(TARGET)

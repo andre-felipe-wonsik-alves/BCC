@@ -3,17 +3,6 @@
 
 using namespace std;
 
-class Utilities
-{
-public:
-    Utilities() {}
-
-    void count_duration() const
-    {
-        Timer timer;
-    }
-};
-
 class Timer
 {
 public:
@@ -36,4 +25,15 @@ public:
 
 private:
     std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
+};
+
+class Utilities
+{
+public:
+    Utilities() {}
+
+    void count_duration()
+    {
+        Timer timer;
+    }
 };

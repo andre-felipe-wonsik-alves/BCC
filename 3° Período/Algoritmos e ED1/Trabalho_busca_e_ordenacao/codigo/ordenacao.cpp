@@ -69,18 +69,25 @@ public:
         Utilities util;
         util.count_duration();
 
-        vector<int> copia = this->dados;
-        int tamanho = copia.size();
-
-        for (int i = 0; i < tamanho; i++)
+        for (int i = 0; i < this->tamanho; i++)
         {
-            for (int j = 0; j < tamanho - i; i++)
+            for (int j = 0; j < this->tamanho - i; i++)
             {
-                if (copia[j] > copia[j + 1])
+                if (this->copia[j] > this->copia[j + 1])
                 {
-                    this->swap(&copia[j], &copia[j + 1]);
+                    this->swap(&this->copia[j], &this->copia[j + 1]);
                 }
             }
+        }
+
+        this->printArray(copia, this->tamanho);
+    }
+
+    void printArray(vector<int> vec, int size)
+    {
+        for (int elem : vec)
+        {
+            cout << elem << " ";
         }
     }
 
