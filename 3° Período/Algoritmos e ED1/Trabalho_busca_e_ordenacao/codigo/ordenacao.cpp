@@ -4,7 +4,7 @@
 #include <list>
 #include <fstream>
 #include <random>
-#include <chrono>
+#include "utilities.cpp"
 
 using namespace std;
 
@@ -15,6 +15,7 @@ private:
     vector<int> copia;
     int tamanho = 0;
 
+public:
     Ordenacao(vector<int> &_arr)
     {
         this->dados = _arr;
@@ -24,6 +25,9 @@ private:
 
     void selection_sort()
     {
+        Utilities util;
+        util.count_duration();
+
         int index_minimo;
 
         for (int i = 0; i < this->tamanho; i++)
@@ -42,6 +46,8 @@ private:
 
     void insertion_sort()
     {
+        Utilities util;
+        util.count_duration();
 
         for (int i = 1; i < this->tamanho; i++) // consideramos que o primeiro elemento esta ordenado
         {
@@ -60,6 +66,9 @@ private:
 
     void bubble_sort()
     {
+        Utilities util;
+        util.count_duration();
+
         vector<int> copia = this->dados;
         int tamanho = copia.size();
 
@@ -77,6 +86,9 @@ private:
 
     void optimized_bubble_sort()
     {
+        Utilities util;
+        util.count_duration();
+
         vector<int> copia = this->dados;
         int tamanho = copia.size();
         bool trocado;

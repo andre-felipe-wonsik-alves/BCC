@@ -3,29 +3,37 @@
 
 using namespace std;
 
-// https://www.youtube.com/watch?v=YG4jexlSAjc <- benchmark baseado nesse tutorial
+class Utilities
+{
+public:
+    Utilities() {}
+
+    void count_duration() const
+    {
+        Timer timer;
+    }
+};
+
 class Timer
 {
 public:
     Timer()
     {
-        start = chrono::high_resolution_clock::now();
+        start_time = std::chrono::high_resolution_clock::now();
     }
 
     ~Timer()
     {
-        Stop();
+        stop();
     }
 
-    void Stop()
+    void stop()
     {
-        auto end = chrono::high_resolution_clock::now();
-
-        chrono::duration<double> duration = end - this->start;
-
-        cout << "Duração: " << duration.count() << " segundos \n";
+        auto end_time = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end_time - start_time;
+        std::cout << "Duração: " << duration.count() << " segundos\n";
     }
 
 private:
-    chrono::time_point<chrono::high_resolution_clock> start;
+    std::chrono::time_point<std::chrono::high_resolution_clock> start_time;
 };
