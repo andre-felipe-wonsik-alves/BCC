@@ -1,72 +1,46 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <list>
 #include <fstream>
 #include <random>
-#include <chrono>
 
 using namespace std;
 
-// https://www.youtube.com/watch?v=YG4jexlSAjc <- benchmark baseado nesse tutorial
-class Timer {
-    public:
-        Timer(){
-            tempo_inicial = std::chrono::high_resolution_clock::now();
-        }
-
-        ~Timer(){
-            Stop();
-        }
-
-        void Stop(){
-            auto tempo_final= std::chrono::high_resolution_clock::now();
-
-            std::chrono::duration<double> duracao = tempo_final - this->tempo_inicial;
-
-            cout << "Duração: " << duracao.count() << " segundos \n";
-        }
-        private:
-            std::chrono::time_point<std::chrono::high_resolution_clock> tempo_inicial;
-};
-
-void create_ordered_file(int file_size)
+class Gerador
 {
-    fstream file;
-    file.open("./dados/ordenado_" + to_string(file_size) + ".bin", ios::binary | ios::out);
-
-    for (int i = file_size; i > 0; i--)
+    Gerador(int file_size)
     {
-        file.write(reinterpret_cast<char*>(&i), sizeof(int));
+        this->size = file_size;
     }
 
-    file.close();
-}
+    void create_ordered_file()
+    {
+        fstream file;
+        file.open("./dados/ordenado_" + to_string(this->size) + ".bin", ios::binary | ios::out);
 
-void create_unordered_file(int file_size)
-{
-    vector<int> dados(file_size);
-    fstream file;
+        for (int i = this->size; i > 0; i--)
+        {
+            file.write(reinterpret_cast<char *>(&i), sizeof(int));
+        }
 
-    for(int& dado : dados){
-        dado = rand() % 9999;
+        file.close();
     }
 
-    file.open("./dados/nao_ordenado_" + to_string(file_size)+ ".bin", ios::binary | ios::out);
-    file.write(reinterpret_cast<char*>(dados.data()), sizeof(int) * dados.size());
-    file.close();
-}
+    void create_unordered_file()
+    {
+        vector<int> dados(this->size);
+        fstream file;
 
-int main()
-{
-    Timer time;
-    int pequeno = 10000;
-    int medio = 50000;
-    int grande = 120000;
+        for (int &dado : dados)
+        {
+            dado = rand() % 9999;
+        }
 
+        file.open("./dados/nao_ordenado_" + to_string(this->size) + ".bin", ios::binary | ios::out);
+        file.write(reinterpret_cast<char *>(dados.data()), sizeof(int) * dados.size());
+        file.close();
+    }
 
-    create_unordered_file(100);    
-    // create_ordered_file(100);
-
-    return 0;
-}
+private:
+    int size = 0;
+};
