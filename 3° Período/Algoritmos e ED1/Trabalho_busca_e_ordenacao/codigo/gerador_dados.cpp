@@ -18,7 +18,7 @@ class Gerador
         fstream file;
         file.open("./dados/ordenado_" + to_string(this->size) + ".bin", ios::binary | ios::out);
 
-        for (int i = this->size; i > 0; i--)
+        for (int i = 0; i < this->size; i++)
         {
             file.write(reinterpret_cast<char *>(&i), sizeof(int));
         }
