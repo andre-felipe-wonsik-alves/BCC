@@ -36,4 +36,16 @@ public:
     {
         Timer timer;
     }
+
+    void count_iterations(int *iterations)
+    {
+        (*iterations)++;
+    }
+
+    void swap(int *elem_A, int *elem_B)
+    {
+        int temp = *elem_A;
+        *elem_A = *elem_B;
+        *elem_B = temp;
+    }
 };

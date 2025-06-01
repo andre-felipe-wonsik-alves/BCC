@@ -14,6 +14,7 @@ private:
     vector<int> dados;
     vector<int> copia;
     int tamanho = 0;
+    Utilities util;
 
 public:
     Ordenacao(vector<int> &_arr)
@@ -25,11 +26,6 @@ public:
 
     void selection_sort()
     {
-        Utilities util;
-        util.count_duration();
-
-        int index_minimo;
-
         for (int i = 0; i < this->tamanho; i++)
         {
             int index_minimo = i;
@@ -40,7 +36,7 @@ public:
                     index_minimo = j;
             }
 
-            this->swap(&this->copia[index_minimo], &this->copia[i]);
+            this->util.swap(&this->copia[index_minimo], &this->copia[i]);
         }
         this->printArray(copia);
     }
@@ -70,6 +66,7 @@ public:
     {
         Utilities util;
         util.count_duration();
+        int *iteracoes = new int(0);
 
         for (int i = 0; i < this->tamanho; i++)
         {
@@ -77,10 +74,13 @@ public:
             {
                 if (this->copia[j] > this->copia[j + 1])
                 {
-                    this->swap(&this->copia[j], &this->copia[j + 1]);
+                    this->util.swap(&this->copia[j], &this->copia[j + 1]);
                 }
+                util.count_iterations(iteracoes);
             }
         }
+
+        cout << "Número de iterações: " << *iteracoes << endl;
 
         this->printArray(copia);
     }
@@ -91,6 +91,7 @@ public:
         {
             cout << elem << "";
         }
+        cout << endl;
     }
 
     void optimized_bubble_sort()
@@ -110,19 +111,12 @@ public:
             {
                 if (copia[j] > copia[j + 1])
                 {
-                    this->swap(&copia[j], &copia[j + 1]);
+                    this->util.swap(&copia[j], &copia[j + 1]);
                 }
             }
 
             if (!trocado)
                 break;
         }
-    }
-
-    void swap(int *elem_A, int *elem_B)
-    {
-        int temp = *elem_A;
-        *elem_A = *elem_B;
-        *elem_B = temp;
     }
 };
