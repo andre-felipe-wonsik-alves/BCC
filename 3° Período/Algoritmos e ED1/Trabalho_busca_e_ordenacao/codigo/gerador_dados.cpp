@@ -42,7 +42,7 @@ public:
             dado = rand() % 9999;
         }
 
-        file.open(this->path + "_" + to_string(this->size) + "_ordenado.bin", ios::binary | ios::out);
+        file.open(this->path + "_" + to_string(this->size) + "_desordenado.bin", ios::binary | ios::out);
         file.write(reinterpret_cast<char *>(dados.data()), sizeof(int) * dados.size());
         file.close();
     }

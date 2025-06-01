@@ -7,13 +7,18 @@
 
 int main()
 {
-    Gerador pequeno("/dados/pequeno", 1000);
-    Gerador medio("/dados/medio", 1000);
-    Gerador grande("/dados/grande", 1000);
-
+    Gerador pequeno("./dados/pequeno", 13000);
     Utilities util;
 
-    Ordenacao ordenacao();
+    pequeno.create_unordered_file();
+
+    vector<int> res = util.read_binary_file("./dados/pequeno_13000_ordenado.bin", 13000);
+
+    Ordenacao ordenacao(res);
+    // ordenacao.selection_sort();
+    // ordenacao.bubble_sort();
+    ordenacao.insertion_sort();
+    // ordenacao.optimized_bubble_sort();
 
     return 0;
 }

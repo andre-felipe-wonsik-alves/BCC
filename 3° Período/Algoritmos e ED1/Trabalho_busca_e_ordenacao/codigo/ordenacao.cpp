@@ -12,7 +12,6 @@ class Ordenacao
 {
 private:
     vector<int> dados;
-    vector<int> copia;
     int tamanho = 0;
     Utilities util;
 
@@ -20,103 +19,123 @@ public:
     Ordenacao(vector<int> &_arr)
     {
         this->dados = _arr;
-        this->copia = this->dados;
-        this->tamanho = this->copia.size();
+        this->tamanho = this->dados.size();
     }
 
     void selection_sort()
     {
+        this->util.start_timer();
+
+        unsigned long long int comparacoes = 0, trocas = 0;
+        vector<int> copia = this->dados;
+
         for (int i = 0; i < this->tamanho; i++)
         {
             int index_minimo = i;
 
             for (int j = i + 1; j < this->tamanho; j++)
             {
-                if (this->copia[j] < this->copia[index_minimo])
+                this->util.count_iterations(&comparacoes);
+                if (copia[j] < copia[index_minimo])
                     index_minimo = j;
             }
 
-            this->util.swap(&this->copia[index_minimo], &this->copia[i]);
+            if (index_minimo != i)
+            {
+                this->util.swap(&copia[index_minimo], &copia[i]);
+                this->util.count_iterations(&trocas);
+            }
         }
-        this->printArray(copia);
+
+        this->util.end_timer();
+
+        this->util.print_result(comparacoes, trocas);
     }
 
     void insertion_sort()
     {
-        Utilities util;
-        util.count_duration();
+        this->util.start_timer();
+        vector<int> copia = this->dados;
+        unsigned long long int comparacoes = 0, trocas = 0;
 
         for (int i = 1; i < this->tamanho; i++) // consideramos que o primeiro elemento está ordenado
         {
-            int temp = this->copia[i];
+            int temp = copia[i];
             int j = i;
+            this->util.count_iterations(&comparacoes);
 
-            while (j > 0 && temp < this->copia[j - 1])
+            while (j > 0 && temp < copia[j - 1])
             {
-                this->copia[j] = this->copia[j - 1];
+                copia[j] = copia[j - 1];
+                this->util.count_iterations(&trocas);
                 --j;
             }
 
-            this->copia[j] = temp;
+            if (j > 0)
+            {
+                this->util.count_iterations(&comparacoes);
+            }
+
+            copia[j] = temp;
+            this->util.count_iterations(&trocas);
         }
-        this->printArray(copia);
+        this->util.end_timer();
+
+        this->util.print_result(comparacoes, trocas);
     }
 
     void bubble_sort()
     {
-        Utilities util;
-        util.count_duration();
-        int *iteracoes = new int(0);
+        this->util.start_timer();
+        vector<int> copia = this->dados;
+
+        unsigned long long int comparacoes = 0, trocas = 0;
 
         for (int i = 0; i < this->tamanho; i++)
         {
             for (int j = 0; j < this->tamanho - i - 1; j++)
             {
-                if (this->copia[j] > this->copia[j + 1])
+                this->util.count_iterations(&comparacoes);
+
+                if (copia[j] > copia[j + 1])
                 {
-                    this->util.swap(&this->copia[j], &this->copia[j + 1]);
+                    this->util.swap(&copia[j], &copia[j + 1]);
                 }
-                util.count_iterations(iteracoes);
+                this->util.count_iterations(&trocas);
             }
         }
 
-        cout << "Número de iterações: " << *iteracoes << endl;
-
-        this->printArray(copia);
-    }
-
-    void printArray(vector<int> vec)
-    {
-        for (int elem : vec)
-        {
-            cout << elem << "";
-        }
-        cout << endl;
+        this->util.end_timer();
+        this->util.print_result(comparacoes, trocas);
     }
 
     void optimized_bubble_sort()
     {
-        Utilities util;
-        util.count_duration();
+        this->util.start_timer();
+        unsigned long long int comparacoes = 0, trocas = 0;
 
         vector<int> copia = this->dados;
-        int tamanho = copia.size();
         bool trocado;
 
-        for (int i = 0; i < tamanho; i++)
+        for (int i = 0; i < this->tamanho; i++)
         {
             trocado = false;
 
-            for (int j = 0; j < tamanho - i; i++)
+            for (int j = 0; j < this->tamanho - i; i++)
             {
+                this->util.count_iterations(&comparacoes);
                 if (copia[j] > copia[j + 1])
                 {
                     this->util.swap(&copia[j], &copia[j + 1]);
+                    this->util.count_iterations(&trocas);
+                    trocado = true;
                 }
             }
 
             if (!trocado)
                 break;
         }
+        this->util.end_timer();
+        this->util.print_result(comparacoes, trocas);
     }
 };
