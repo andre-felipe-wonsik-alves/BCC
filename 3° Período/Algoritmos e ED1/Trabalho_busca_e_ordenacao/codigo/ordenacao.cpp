@@ -42,6 +42,7 @@ public:
 
             this->swap(&this->copia[index_minimo], &this->copia[i]);
         }
+        this->printArray(copia, this->tamanho);
     }
 
     void insertion_sort()
@@ -49,19 +50,20 @@ public:
         Utilities util;
         util.count_duration();
 
-        for (int i = 1; i < this->tamanho; i++) // consideramos que o primeiro elemento esta ordenado
+        for (int i = 1; i < this->tamanho; i++) // consideramos que o primeiro elemento está ordenado
         {
             int temp = this->copia[i];
-            int j = i--;
+            int j = i;
 
-            while (j >= 0 && temp < this->copia[j])
+            while (j > 0 && temp < this->copia[j - 1])
             {
-                this->copia[j + 1] = this->copia[j];
+                this->copia[j] = this->copia[j - 1];
                 --j;
             }
 
-            this->copia[j + 1] = temp;
+            this->copia[j] = temp;
         }
+        this->printArray(copia, this->tamanho);
     }
 
     void bubble_sort()
@@ -87,7 +89,7 @@ public:
     {
         for (int elem : vec)
         {
-            cout << elem << " ";
+            cout << elem << "";
         }
     }
 
