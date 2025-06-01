@@ -8,8 +8,8 @@ int main()
     vector<int> teste = {5, 6, 2, 1};
 
     Ordenacao *ordenacao = new Ordenacao(teste);
-    // ordenacao->bubble_sort();
-    // ordenacao->selection_sort();
+    ordenacao->bubble_sort();
+    ordenacao->selection_sort();
     ordenacao->insertion_sort();
 
     return 0;

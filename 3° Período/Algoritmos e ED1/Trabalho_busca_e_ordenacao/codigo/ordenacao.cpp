@@ -42,7 +42,7 @@ public:
 
             this->swap(&this->copia[index_minimo], &this->copia[i]);
         }
-        this->printArray(copia, this->tamanho);
+        this->printArray(copia);
     }
 
     void insertion_sort()
@@ -63,7 +63,7 @@ public:
 
             this->copia[j] = temp;
         }
-        this->printArray(copia, this->tamanho);
+        this->printArray(copia);
     }
 
     void bubble_sort()
@@ -73,7 +73,7 @@ public:
 
         for (int i = 0; i < this->tamanho; i++)
         {
-            for (int j = 0; j < this->tamanho - i; i++)
+            for (int j = 0; j < this->tamanho - i - 1; j++)
             {
                 if (this->copia[j] > this->copia[j + 1])
                 {
@@ -82,10 +82,10 @@ public:
             }
         }
 
-        this->printArray(copia, this->tamanho);
+        this->printArray(copia);
     }
 
-    void printArray(vector<int> vec, int size)
+    void printArray(vector<int> vec)
     {
         for (int elem : vec)
         {
