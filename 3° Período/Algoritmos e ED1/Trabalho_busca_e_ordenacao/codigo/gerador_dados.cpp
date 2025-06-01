@@ -12,7 +12,8 @@ private:
     int size = 0;
     string path;
 
-    Gerador(int file_size, string _path = "./dados/")
+public:
+    Gerador(string _path, int file_size)
     {
         this->size = file_size;
         this->path = _path;
