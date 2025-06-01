@@ -48,4 +48,21 @@ public:
         *elem_A = *elem_B;
         *elem_B = temp;
     }
+
+    vector<int> read_binary_file(string path, int size)
+    {
+        vector<int> dados(size);
+        ifstream file(path + "_" + std::to_string(size) + "_ordenado.bin", std::ios::binary | std::ios::in);
+
+        if (!file.is_open())
+        {
+            cout << "Erro ao abrir o arquivo binário para leitura." << endl;
+            return {};
+        }
+
+        file.read(reinterpret_cast<char *>(dados.data()), sizeof(int) * size);
+        file.close();
+
+        return dados;
+    }
 };
