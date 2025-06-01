@@ -28,7 +28,7 @@ public:
 
         this->end = chrono::high_resolution_clock::now();
         chrono::duration<double> duration = this->end - this->start;
-        cout << "Tempo de duracao: " << duration.count() << " ms" << endl;
+        cout << "Tempo de duracao: " << duration.count() << " segundos" << endl;
     }
 
     void print_result(int comparacoes, int trocas)
