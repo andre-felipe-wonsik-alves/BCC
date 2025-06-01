@@ -8,6 +8,12 @@
 int main()
 {
     Gerador pequeno("/dados/pequeno", 1000);
+    Gerador medio("/dados/medio", 1000);
+    Gerador grande("/dados/grande", 1000);
+
+    Utilities util;
+
+    Ordenacao ordenacao();
 
     return 0;
 }
