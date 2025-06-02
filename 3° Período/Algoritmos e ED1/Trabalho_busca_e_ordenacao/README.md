@@ -9,3 +9,6 @@ feito por André Felipe Wonsik Alves e Erick Molina Gehring
 3. Assim que finalizado, escreva: ```./main```
 
 ## Windows
+1. Na raíz desse projeto
+2. Digite ```g++ main.cpp```
+3. Escreva ```./a.exe```

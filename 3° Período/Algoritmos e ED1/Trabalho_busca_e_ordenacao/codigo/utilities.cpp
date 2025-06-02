@@ -31,7 +31,7 @@ public:
         cout << "Tempo de duracao: " << duration.count() << " segundos" << endl;
     }
 
-    void print_result(int comparacoes, int trocas)
+    void print_result(unsigned long long int comparacoes, unsigned long long int trocas)
     {
         cout << "Comparações: " << comparacoes << " | Trocas: " << trocas << endl;
     };

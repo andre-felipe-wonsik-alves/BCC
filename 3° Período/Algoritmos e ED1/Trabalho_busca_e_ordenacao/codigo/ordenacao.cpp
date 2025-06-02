@@ -35,7 +35,7 @@ public:
 
             for (int j = i + 1; j < this->tamanho; j++)
             {
-                this->util.count_iterations(&comparacoes);
+                comparacoes++;
                 if (copia[j] < copia[index_minimo])
                     index_minimo = j;
             }
@@ -108,20 +108,48 @@ public:
         this->util.end_timer();
         this->util.print_result(comparacoes, trocas);
     }
+    void optimized_selection_sort()
+    {
+        this->util.start_timer();
+        vector<int> copia = this->dados;
+
+        for (int i = 0, j = this->tamanho - 1; i < j; i++, j--)
+        {
+            int min = copia[i], max = copia[i];
+            int min_i = i, max_i = i;
+            for (int k = i; k <= j; k++)
+            {
+                if (copia[k] > max)
+                {
+                    max = copia[k];
+                    max_i = k;
+                }
+                else if (copia[k] < min)
+                {
+                    min = copia[k];
+                    min_i = k;
+                }
+            }
+
+            this->util.swap(&copia[i], &copia[min_i]);
+
+            if (copia[min_i] == max)
+                swap(copia[j], copia[min_i]);
+            else
+                swap(copia[j], copia[max_i]);
+        }
+    }
 
     void optimized_bubble_sort()
     {
-        this->util.start_timer();
         unsigned long long int comparacoes = 0, trocas = 0;
-
+        this->util.start_timer();
         vector<int> copia = this->dados;
-        bool trocado;
 
         for (int i = 0; i < this->tamanho; i++)
         {
-            trocado = false;
-
-            for (int j = 0; j < this->tamanho - i; i++)
+            bool trocado = false;
+            for (int j = 0; j < this->tamanho - i - 1; j++)
             {
                 this->util.count_iterations(&comparacoes);
                 if (copia[j] > copia[j + 1])
@@ -131,10 +159,12 @@ public:
                     trocado = true;
                 }
             }
-
             if (!trocado)
+            {
                 break;
+            }
         }
+
         this->util.end_timer();
         this->util.print_result(comparacoes, trocas);
     }
