@@ -38,22 +38,27 @@ void ordenar(std::vector<int> &dados)
 {
     Ordenacao ordenacao(dados);
 
-    std::cout << "Selection Sort:\n";
+    cout << "Selection Sort:\n";
     ordenacao.selection_sort();
 
-    std::cout << "\n";
+    cout << "\n";
 
-    std::cout << "Bubble Sort:\n";
+    cout << "Selection Sort Otimizado:\n";
+    ordenacao.optimized_selection_sort();
+
+    cout << "\n";
+
+    cout << "Bubble Sort:\n";
     ordenacao.bubble_sort();
 
-    std::cout << "\n";
+    cout << "\n";
 
-    std::cout << "Bubble Sort Otimizado:\n";
+    cout << "Bubble Sort Otimizado:\n";
     ordenacao.optimized_bubble_sort();
 
-    std::cout << "\n";
+    cout << "\n";
 
-    std::cout << "Insertion Sort:\n";
+    cout << "Insertion Sort:\n";
     ordenacao.insertion_sort();
 }
 
@@ -88,15 +93,15 @@ int main()
     vector<int> dados6 = util.read_binary_file("dados/grande_165000_ordenado.bin", 165000);
     ordenar(dados6);
 
-    cout << "\nBUSCAS NO ARQUIVO PEQUENO ORDENADO\n";
-    int chave = 1234; // valor para buscar
-    buscar(dados4, chave);
+    // cout << "\nBUSCAS NO ARQUIVO PEQUENO ORDENADO\n";
+    // int chave = 1234; // valor para buscar
+    // buscar(dados4, chave);
 
-    cout << "\nBUSCAS NO ARQUIVO MEDIO ORDENADO\n";
-    buscar(dados5, chave);
+    // cout << "\nBUSCAS NO ARQUIVO MEDIO ORDENADO\n";
+    // buscar(dados5, chave);
 
-    cout << "\nBUSCAS NO ARQUIVO GRANDE ORDENADO\n";
-    buscar(dados6, chave);
+    // cout << "\nBUSCAS NO ARQUIVO GRANDE ORDENADO\n";
+    // buscar(dados6, chave);
 
     return 0;
 }
