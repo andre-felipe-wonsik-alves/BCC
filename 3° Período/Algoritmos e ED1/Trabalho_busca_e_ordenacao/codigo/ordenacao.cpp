@@ -112,6 +112,7 @@ public:
     {
         this->util.start_timer();
         vector<int> copia = this->dados;
+        unsigned long long int comparacoes = 0, trocas = 0;
 
         for (int i = 0, j = this->tamanho - 1; i < j; i++, j--)
         {
@@ -119,6 +120,7 @@ public:
             int min_i = i, max_i = i;
             for (int k = i; k <= j; k++)
             {
+                this->util.count_iterations(&comparacoes);
                 if (copia[k] > max)
                 {
                     max = copia[k];
@@ -132,12 +134,20 @@ public:
             }
 
             this->util.swap(&copia[i], &copia[min_i]);
+            this->util.count_iterations(&trocas);
 
             if (copia[min_i] == max)
+            {
                 swap(copia[j], copia[min_i]);
+            }
             else
+            {
                 swap(copia[j], copia[max_i]);
+            }
+            this->util.count_iterations(&trocas);
         }
+        this->util.end_timer();
+        this->util.print_result(comparacoes, trocas);
     }
 
     void optimized_bubble_sort()
