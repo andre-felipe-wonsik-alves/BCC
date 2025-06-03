@@ -5,13 +5,17 @@
 #include <stack>
 #include <queue>
 
+using namespace std;
+
 class Recursividade
 {
 public:
     Recursividade();
     void print_txt(char *text, int num);
     void count(int num);
+    void count_helper(int num, int max);
     void count_max(int num, int max);
+    void count_max_helper(int num, int max);
     void print_vec(vector<int> &vec, int idx);
     void print_even(vector<int> &vec, int idx);
     void print_list(list<int> &lst, list<int>::iterator &it);
