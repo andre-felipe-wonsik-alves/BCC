@@ -108,44 +108,41 @@ public:
         this->util.end_timer();
         this->util.print_result(comparacoes, trocas);
     }
+
     void optimized_selection_sort()
     {
         this->util.start_timer();
-        vector<int> copia = this->dados;
-        unsigned long long int comparacoes = 0, trocas = 0;
 
-        for (int i = 0, j = this->tamanho - 1; i < j; i++, j--)
+        unsigned long long int comparacoes = 0, trocas = 0;
+        vector<int> copia = this->dados;
+
+        for (int i = 0; i < this->tamanho - 1; i++)
         {
-            int min = copia[i], max = copia[i];
-            int min_i = i, max_i = i;
-            for (int k = i; k <= j; k++)
+            int index_minimo = i;
+            bool houve_troca = false;
+
+            for (int j = i + 1; j < this->tamanho; j++)
             {
-                this->util.count_iterations(&comparacoes);
-                if (copia[k] > max)
+                comparacoes++;
+                if (copia[j] < copia[index_minimo])
                 {
-                    max = copia[k];
-                    max_i = k;
-                }
-                else if (copia[k] < min)
-                {
-                    min = copia[k];
-                    min_i = k;
+                    index_minimo = j;
+                    houve_troca = true; // haverá troca se index_minimo mudar
                 }
             }
 
-            this->util.swap(&copia[i], &copia[min_i]);
-            this->util.count_iterations(&trocas);
-
-            if (copia[min_i] == max)
+            if (houve_troca)
             {
-                swap(copia[j], copia[min_i]);
+                this->util.swap(&copia[i], &copia[index_minimo]);
+                this->util.count_iterations(&trocas);
             }
             else
             {
-                swap(copia[j], copia[max_i]);
+                // Nenhuma troca foi feita, o restante já está ordenado
+                break;
             }
-            this->util.count_iterations(&trocas);
         }
+
         this->util.end_timer();
         this->util.print_result(comparacoes, trocas);
     }
