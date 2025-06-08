@@ -1,3 +1,4 @@
+//* Estratégia
 interface NotificationStrategy {
     void send(Message message, String recipient);
 }
@@ -22,12 +23,29 @@ abstract class Message {
     }
 }
 
-
+//* Concreto */
 class EmailNotificationStrategy implements NotificationStrategy {
-    
+    public EmailNotificationStrategy(){
+        //? esse construtor sempre é vazio mesmo?
+    }
+
+    public void send(Message message, String recipient){
+        System.out.println("Preview do email:\n" + message.content + " para " + recipient);
+        System.out.println("Email enviado!");
+
+    }
 }
 
+//* Concreto */
 class SMSNotificationStrategy implements NotificationStrategy {
+    public SMSNotificationStrategy(){
+        //? esse construtor sempre é vazio mesmo?
+    }
+
+    public void send(Message message, String recipient){
+        System.out.println("Preview do SMS:\n" + message.content + " para " + recipient);
+        System.out.println("SMS enviado!");
+    }
     
 }
 
@@ -99,6 +117,7 @@ class MessageFactory {
     }
 }
 
+// * Context
 class NotificationService {
     private NotificationStrategy strategy;
 
@@ -108,6 +127,7 @@ class NotificationService {
         this.strategy = strategy;
     }
 
+    //* Concreto */
     public void setStrategy(NotificationStrategy strategy) {
         this.strategy = strategy;
     }
