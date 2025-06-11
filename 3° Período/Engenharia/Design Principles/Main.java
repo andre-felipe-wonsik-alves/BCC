@@ -3,6 +3,28 @@ interface NotificationStrategy {
     void send(Message message, String recipient);
 }
 
+abstract class MessageFactory{
+    public abstract Message createMessage(String content);
+}
+
+class SimpleMessageFactory extends MessageFactory {
+    public Message createMessage(String content){
+        return new SimpleMessage(content);
+    }
+}
+
+class UrgentMessageFactory extends MessageFactory{
+    public Message createMessage(String content){
+        return new UrgentMessage(content);
+    }
+}
+
+class PromotionalMessageFactory extends MessageFactory {
+    public Message createMessage(String content){
+        return new PromotionalMessage(content);
+    }
+}
+
 abstract class Message {
     protected String content;
 
@@ -31,7 +53,6 @@ class EmailNotificationStrategy implements NotificationStrategy {
 
     public void send(Message message, String recipient){
         System.out.println("Preview do email:\n" + message.content + " para " + recipient);
-        System.out.println("Email enviado!");
 
     }
 }
@@ -44,7 +65,6 @@ class SMSNotificationStrategy implements NotificationStrategy {
 
     public void send(Message message, String recipient){
         System.out.println("Preview do SMS:\n" + message.content + " para " + recipient);
-        System.out.println("SMS enviado!");
     }
     
 }
@@ -106,16 +126,16 @@ class PromotionalMessage extends Message {
     }
 }
 
-class MessageFactory {
-    public static Message createMessage(String type, String content) {
-        if ("SIMPLE".equalsIgnoreCase(type)) {
-            return new SimpleMessage(content);
-        } else if ("URGENT".equalsIgnoreCase(type)) {
-            return new UrgentMessage(content);
-        }
-        throw new IllegalArgumentException("Tipo de mensagem desconhecido: " + type);
-    }
-}
+// class MessageFactory {
+//     public static Message createMessage(String type, String content) {
+//         if ("SIMPLE".equalsIgnoreCase(type)) {
+//             return new SimpleMessage(content);
+//         } else if ("URGENT".equalsIgnoreCase(type)) {
+//             return new UrgentMessage(content);
+//         }
+//         throw new IllegalArgumentException("Tipo de mensagem desconhecido: " + type);
+//     }
+// }
 
 // * Context
 class NotificationService {
@@ -147,8 +167,16 @@ class NotificationService {
 
 public class Main {
     public static void main(String[] args) {
-        Message welcomeMessage = MessageFactory.createMessage("SIMPLE", "Bem-vindo(a) ao nosso sistema!");
-        Message alertMessage = MessageFactory.createMessage("URGENT", "Falha crítica detectada no servidor XYZ. Ação imediata requerida.");
+        MessageFactory simpleMessageFactory = new SimpleMessageFactory();
+        MessageFactory urgentMessageFactory = new UrgentMessageFactory();
+        MessageFactory promotionalMessageFactory = new PromotionalMessageFactory();
+
+        // Message welcomeMessage = MessageFactory.createMessage("SIMPLE", "Bem-vindo(a) ao nosso sistema!");
+        // Message alertMessage = MessageFactory.createMessage("URGENT", "Falha crítica detectada no servidor XYZ. Ação imediata requerida.");
+
+        Message welcomeMessage = simpleMessageFactory.createMessage("Bem vindo ao nosso sistema!");
+        Message alertMessage = urgentMessageFactory.createMessage("Um pod morreu");
+        Message promotionalMessage = promotionalMessageFactory.createMessage("Promoção");
 
         NotificationService notificationService = new NotificationService();
 
@@ -156,11 +184,13 @@ public class Main {
         notificationService.setStrategy(new EmailNotificationStrategy());
         notificationService.sendNotification(welcomeMessage, "aluno@exemplo.com");
         notificationService.sendNotification(alertMessage, "admin@exemplo.com");
+        notificationService.sendNotification(promotionalMessage, "admin@exemplo.com");
 
         System.out.println("--- Mudando para Estratégia de SMS ---");
         notificationService.setStrategy(new SMSNotificationStrategy());
         notificationService.sendNotification(welcomeMessage, "+5511912345678");
         notificationService.sendNotification(alertMessage, "+5521987654321");
+        notificationService.sendNotification(promotionalMessage, "+5521987654321");
 
     }
 }
