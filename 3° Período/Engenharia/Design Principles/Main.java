@@ -3,22 +3,26 @@ interface NotificationStrategy {
     void send(Message message, String recipient);
 }
 
+//* Estratégia
 abstract class MessageFactory{
     public abstract Message createMessage(String content);
 }
 
+//*  Concreto
 class SimpleMessageFactory extends MessageFactory {
     public Message createMessage(String content){
         return new SimpleMessage(content);
     }
 }
 
+//*  Concreto
 class UrgentMessageFactory extends MessageFactory{
     public Message createMessage(String content){
         return new UrgentMessage(content);
     }
 }
 
+//*  Concreto
 class PromotionalMessageFactory extends MessageFactory {
     public Message createMessage(String content){
         return new PromotionalMessage(content);
@@ -34,7 +38,6 @@ abstract class Message {
 
     public abstract String format(); // Método para formatar a mensagem específica
 
-    public abstract Message createMessage();
 
     public String getContent() {
         return content;
@@ -165,6 +168,7 @@ class NotificationService {
     }
 }
 
+//* Cliente
 public class Main {
     public static void main(String[] args) {
         MessageFactory simpleMessageFactory = new SimpleMessageFactory();
@@ -175,7 +179,7 @@ public class Main {
         // Message alertMessage = MessageFactory.createMessage("URGENT", "Falha crítica detectada no servidor XYZ. Ação imediata requerida.");
 
         Message welcomeMessage = simpleMessageFactory.createMessage("Bem vindo ao nosso sistema!");
-        Message alertMessage = urgentMessageFactory.createMessage("Um pod morreu");
+        Message alertMessage = urgentMessageFactory.createMessage("Socoooorro");
         Message promotionalMessage = promotionalMessageFactory.createMessage("Promoção");
 
         NotificationService notificationService = new NotificationService();
