@@ -178,7 +178,7 @@ public class Main {
         // Message welcomeMessage = MessageFactory.createMessage("SIMPLE", "Bem-vindo(a) ao nosso sistema!");
         // Message alertMessage = MessageFactory.createMessage("URGENT", "Falha crítica detectada no servidor XYZ. Ação imediata requerida.");
 
-        Message welcomeMessage = simpleMessageFactory.createMessage("Bem vindo ao nosso sistema!");
+        Message welcomeMessage = simpleMessageFactory.createMessage("andrezao teste");
         Message alertMessage = urgentMessageFactory.createMessage("Socoooorro");
         Message promotionalMessage = promotionalMessageFactory.createMessage("Promoção");
 
