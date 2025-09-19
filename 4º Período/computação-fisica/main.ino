@@ -35,6 +35,7 @@ int saida;                    // Dígito a ser exibido no display
 
 unsigned long countdown_start = 0;  // Marca de tempo do início da contagem regressiva
 
+int accelerator = 1; // Serve pra alterar mais rápido o valor do contador quando o encoder for sendo girado “rápido”
 
 
 
@@ -129,14 +130,15 @@ void loop() {
 
  // --- Controle do encoder ---
  if(clk_state == 1 && clk_state != clk_last_state && (millis() - clk_last_turn) > 0) {
-   clk_last_turn = millis();
+  if((millis() - clk_last_turn) > 350) accelerator = 1; // Se faz mais de 350 ms desde o último input do encoder, reseta o fator de aceleração de volta pra 1 
+  clk_last_turn = millis();
 
    // Rotação horária → incrementa valor
    if(dt_state != clk_state) {
      if(!slider_state){
         valor += 60;
      } else{
-        valor++;
+        valor+=1*accelerator;
      }
    }
    // Rotação anti-horária → decrementa valor
@@ -144,13 +146,14 @@ void loop() {
      if(!slider_state && valor > 0){
         valor -= 60;
      } else if (valor > 0){
-        valor--;
+        valor-= 1*accelerator;
      }
    }
 
 
    // Limite máximo: 59:59 (3600s)
    if(valor >= 3600) valor = 0;
+   if(accelerator < 60) accelerator += 10;
  }
 
 
