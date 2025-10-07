@@ -1,0 +1,209 @@
+\section{Methods}
+In what follows, we optimize the weights of a hierarchical neural
+cellular automata (sect. \ref{sec:3.1}) using an evolutionary algorithm (sect.
+\ref{sec:3.2}) such that the lowest level of the HNCA exhibits morphogenesis
+and homeostasis (sect. \ref{sec:3.1.2}). We compare the evolvability of this
+system against a control treatment in which hierarchy has been
+removed (sect \ref{sec:3.3}). Finally, we investigate the evolvability of HNCAs
+in which selection pressure is brought to bear on higher levels (sect.
+\ref{sec:3.4}). An overview of this approach is provided in Figure \ref{fig:hierarchical_ca}. The code
+for our implementation can be seen on Github\footnote{https://github.com/ngaylinn/mocs-final}.
+
+\subsection{The hierarchical neural cellular automaton}\label{sec:3.1}
+The HNCA is comprised of a stacked set of 2D cellular automata
+(sect. \ref{sec:3.1.1}) connected such that each cell’s behavior is influenced
+by some cells above and/or below it, in addition to its same-level neighbors (sect. \ref{sec:3.1.2}).
+
+\subsubsection{HNCA architecture}\label{sec:3.1.1}
+The HNCA is comprised of $L$ 2D cellular
+automata, layered on top of each other. Each 2D layer is composed
+of $NxN$ cells. In a 4-layer HNCA, $N$ is 64 for $l$ = 1, 32 for $l$ = 2, 16
+for $l$ = 3, and 8 for $l$ = 4, stacked on top of each other hierarchically.
+Each cell in the "selection layer" is either live or dead. The "selection
+layer" is the layer at which the HNCA is evaluated by the evolutionary algorithm (sect. \ref{sec:3.2}), which can be any of $l$ $\in$ [1, $l$]. Every
+cell within a layer $l$ contains a neural network (NN) with identical
+architecture and parameter values. The NN’s inputs connect to the
+states of its same-level Moore neighborhood (inclusive of its own
+state), and its superordinate or subsidiary cells if they exist (the top
+layer does not have superordinate cells and the bottom layer does
+not have subsidiary cells). The NN’s output is its own state at the
+next timestep, a 32-bit floating point value $\in$ [0, 1). A visualization
+of a 3-layer Hierarchical NCA design can be seen in \underline{Figure ~\ref{fig:hierarchical_ca}}. This
+design differs from a traditional CA in a few important ways:
+
+\begin{itemize}
+  \item \underline{Three dimensions.} Instead of using a 2D rectangular grid for
+the simulation space, this implementation uses a 3D grid.
+This way, each cell has adjacent neighbors in its current
+layer, the one below, and the one above. The purpose of
+multiple layers is to capture communication modes across
+the scales of the biological system. This design is similar
+to multi-channel NCAs, but a key difference is the varying
+resolutions of different levels, which allows each layer to
+aggregate signals from several cells in the layer below and
+summarize them as a single value to the layer above. 
+\Needspace{0.45\textheight}
+\begin{strip}
+  \centering
+  \includegraphics[width=0.8\textwidth]{assets/figures/layered_automatum.png}
+  \captionof{figure}{The hierarchical neural cellular automata (HNCA). (a) Each cell at level $\ell$ (green) is influenced by the 2x2 subsidiary cells below it (orange), its eight same-level neighbors (blue), and a single parent cell above (red). (b) The signals from these 13 cells, including the cell's previous state, determine the cell's next state.}
+  \label{fig:hierarchical_ca}
+\end{strip}
+  \item 
+  \underline{Neighborhood shape.}  Each cell looks at a Moore neighborhood within its own layer. Additionally, each cell has neighbors in the layers above and below it. This follows logically
+from this experiment’s goal of modeling hierarchical communication. Notably, there are no direct connections between
+non-adjacent layers, so communication between these layers
+must pass through intermediary layers. Importantly, information can only travel from one neighbor to another in a
+single time step, so long-range communication, which occurs
+in biological systems, is relatively limited here.
+
+  \item \underline{Continuous state.}  Each cell has a continuous state value (a
+32-bit float) that is computed by multiplying the state of
+each of its neighbors (including up and down neighbors) by
+a corresponding continuous weight value (which is evolved,
+see below). This is common for NCA algorithms generally.
+For simplicity, we did not include bias parameters in this
+network, as some other NCAs do. A sigmoid function is used
+to compute the final cell value from the weighted sum of its
+neighbor states. When we evaluate the system’s fitness, this
+value is binarized to produce the final image to be tested for
+fitness, which we will discuss in section \ref{sec:3.2}.
+\end{itemize}
+
+In this model, each layer is logically smaller than the one above
+it. Each layer is smaller by a factor of two in both dimensions than
+the layer below it, meaning that each cell in that layer corresponds
+to four cells in the layer below. We chose a 2:1 ratio for computational and mathematical convenience. A 64x64 grid for the highest
+resolution layer was big enough to support interesting behavior
+and small enough to be run efficiently on available hardware.
+
+
+
+\subsubsection{HNCA behavior}\label{sec:3.1.2}
+{
+The HNCA is simulated for 100 time steps
+before comparing the final state of the selection layer to the target
+morphology. The choice of 100 steps was chosen to give the HNCA
+enough time to develop while keeping the experiment computationally reasonable. Many NCA models, especially of morphogenesis,
+randomize the number of time steps run and update each cell with
+probability $p$ at each time step, primarily to improve the NCA’s
+robustness. We did not do this, for simplicity and because it was
+not the focus of our experiment.
+
+The initial state (at $t$ = 0) of the HNCA contains a single live
+cell with value 1 at the center of the grid. During each subsequent
+timestep, every cell is updated according to the weighted sum of
+its multilevel neighborhood (described thoroughly in sect. \ref{sec:3.1.3}).
+
+
+\subsubsection{Mathematical formalism}\label{sec:3.1.3}
+Here we include a mathematical
+description of our model. The genome of an individual is the set of
+neural network weights at all levels. The update function for the
+state $S$ of a cell at layer $l$ is the following:
+\begin{equation}
+  S_{\ell,t\text{+}1} = \sigma\!\left(W_M \text{+} W_A \text{+} W_B\right),
+\end{equation}
+
+Where $\sigma$ is the sigmoid activation function and $W_M$ , $W_A$, and
+$W_B$ is the weighted sum of the states from the same-level Moore
+neighborhood, the state of the cell from the layer above, and the
+weighted sum of the cell states below, respectively. Formally:
+\begin{align}
+W_M &= \sum_{m\in M} w_{l,m} \cdot S_{l,t,m} \\
+W_A &= w_{l,a} \cdot S_{l+1,t,a} \\
+W_B &= \sum_{b\in B} w_{l,b} \cdot S_{l-1,t,b}
+\end{align}
+
+$B$ is the set of subsidiary cells in the layer below, $M$ is the set of
+same-level Moore neighborhood cells, and $A$ is the set of cells above
+(with a single member). $S_{l,t,a}$ is the state of cell $\alpha$ $\in$ $B$ $\cup$ $M$ $\cup$ $A$ at
+layer $L$ at timestep $t$. The genome of a particular solution holds all
+$w_{l,m}$, $w_{l,a}$, and $w_{l,b}$, which are the weights for layer $l$ cells for the
+Moore neighborhood, parent cells, and subsidiary cells respectively.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{assets/figures/filtered_cells.png}
+    \caption{An initial seed spreads to 1024 cells, attempting to match the 32x32 square that is the target shape. Here, loss is the sum of the quantity of unfilled target cells and filled non-target cells.}
+    \label{fig:inital_seed}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{assets/figures/formats.png}
+    \caption{Target shapes for square (red), diamond (green), and circle (blue) shapes at various levels of resolution (left to right: 64x64, 32x32, 16x16, 8x8).}
+    \label{fig:target_shape}
+\end{figure}
+
+
+\subsection{The evolutionary algorithm}\label{sec:3.2}
+
+\begin{center}
+    \begin{table}[H]
+        \begin{tabular}{ |l|l| }
+        \hline
+        \textbf{Parameters} & \textbf{Values} \\
+        \hline
+        Generations & 2000 \\ 
+        Population size & 500 \\ 
+        Random individuals per generation & 100 \\
+        Independent Trials & 20 \\
+        \hline
+        \end{tabular}
+        \caption{Evolutionary parameters for all experiments}
+    \end{table}
+\end{center}
+
+We chose the evolutionary algorithm \textit{Age-Fitness Pareto Optimization} (AFPO) \cite{Varley2023} to optimize the HNCA. AFPO is a multiobjective EA which treats an individual’s age as an explicit selection
+criterion alongside the other fitness criteria (in our case, shapematching ability). Doing this prevents premature convergence to a
+merely locally optimal solution by keeping around younger individuals in the population to give them opportunity to evolve further.
+Without explicit selection for young individuals, the population
+may become narrow in its diversity. AFPO has been used effectively
+in previous literature on evolving NCAs \cite{GrassoBongard2022}.
+
+Individuals in the population have a genotype denoting their
+neural ruleset, and that ruleset is used to run the NCA over 100
+timesteps. The HNCAs closest matching a target shape at timestep
+100 is selected for mutation for the next generation. As an example,
+the genotype of a 4-layer HNCA with selection layer $l$ = 1 has 51
+tunable parameters: 10 for $l$ = 1, 14 for $l$ = 2, 3 and 13 for $l$ = 4.
+
+We used four different target morphologies: a square, a diamond,
+and a circle. The fitness of an individual is determined by the absolute difference between the binarized final state produced by the
+HNCA (at $t$ = 100) and its target shape, with 0 being a perfect
+score (see Figure \ref{fig:inital_seed}). We call this absolute difference the loss, but in
+evolutionary terms, higher fitness is equivalent to lower loss.
+
+\subsection{The control treatment}\label{sec:3.3}
+Figure \ref{fig:results_comparations} shows a comparison between non-hierarchical 1-layer
+NCAs, and 2-layer, 3-layer, and 4-layer HNCAs. This shows the
+potential value of recursively adding lower-resolution, integrative
+(i.e. aggregating subsidiary cells with a higher-level cell) layers,
+but the increased performance of the additional hierarchical layer
+compared to a single-layer single-resolution NCA could be due
+simply to the increased number of cells and increased amount of
+overall compute. In order to ensure any difference in fitness between NCAs and HNCAs is not a simple result of the increased
+number of cells in the additional layers, we compare multi-layer
+HNCAs to single-resolution NCAs with an equal number of cells
+and an equal distribution of neighborhood sizes in Figure \ref{fig:hnca_vs_nca}b. We
+keep the number of grids and grid resolutions the same (thus there
+is an equivalent numbers of cells between hierarchical NCA and
+the control), but the connections between the grids in the control
+are connected randomly in the control in an effort to remove this
+spatial hierarchy from the control. For a given cell in the control, the
+cell uses a Moore neighborhood in its grid as well as connections
+randomized connecting to a random layer and a random offset from
+the cell. That is, the only difference between HNCA and control is
+the neighborhoods. Re-wiring the between-layer neighbors across
+random layers and random offsets is an attempt to "level the hierarchy" without removing the computational power of the control.
+You can see a visualization of the control setup in Figure \ref{fig:hnca_vs_nca}a.
+
+\subsection{Selection at higher levels}\label{sec:3.4}
+We also explore selection at various scales by evaluating phenotypes
+at different layers of the HNCA. Figure \ref{fig:target_shape} shows the target shapes
+for the different layers. Each HNCA compared here is 4 layers
+total, though the binarization of cells and subsequent phenotype
+evaluation occurs at each of the 4 scales in each of the 4 treatments.
+Their performance, measured as a proportion of cells correct instead
+of overall loss, is compared for each shape and shown in Figure \ref{fig:average_evolutionary}.

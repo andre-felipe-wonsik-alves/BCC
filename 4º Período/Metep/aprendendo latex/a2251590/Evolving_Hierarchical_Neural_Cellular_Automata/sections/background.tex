@@ -1,0 +1,59 @@
+\section{Background}
+Communication within biological systems occurs across multiple
+scales. Cells can communicate directly with one another through
+“key and lock” mechanisms on their membrane surfaces; on a local scale by releasing signaling chemicals (paracrine factors) into
+their local environment; or on vaster scales with endocrine and
+bio-electric signaling. The variety of signaling modalities is constantly being expanded with new discoveries \cite{Cardozo2020,Levin2023,Mayr1997,Mordvintsev2021} and each
+mode of communication empowers individual cells or higher-order
+structures to influence and guide the state of the whole. Previous
+NCA models of morphogenesis do not attempt to explicitly capture
+these larger-scale communication modes. The work done in HCAs
+does roughly capture this, though their evolutionary dynamics have
+not been analyzed nor have they been used to test our multiscale
+signaling hypothesis (to our knowledge).
+
+Selection is one essential mechanism of evolution. There are
+many perspectives within evolutionary biology regarding at which
+level(s) selection occurs \cite{Goertzel1992,McMillenLevin2024,Palm2022}. Selection can only act on the
+physical manifestation of an organism: its phenotype. However,
+discrete phenotypes can be identified at multiple scales. There is
+general agreement that behaviors at any of these scales may affect
+fitness, but there’s disagreement about whether to think of this as
+selection at many scales, or indirect influences that subtly affect
+fitness at the scale of an organism \cite{Darwin1859}, or its genes \cite{Dawkins1976}. By applying
+selection to different scales of an HNCA, we are able to investigate
+how much, or whether, this influences the overall hierarchy’s ability
+to grow and maintain structure.
+
+\subsection{Related Work}
+The recent NCA literature largely explores generative modeling, texture generation, and morphogenesis applications. The Variational
+Neural Cellular Automata (VNCA) \cite{Pande2023} introduces a probabilistic
+generative model inspired by cellular growth and differentiation,
+demonstrating the ability to reconstruct and generate diverse outputs from a common vector format despite its simplicity and limited
+parameters. Another study on texture generation with NCAs \cite{Nichele2018}
+showcases their potential in learning to generate high-fidelity textures from single template images, though it fails consistently in
+reproducing larger-scale structures. CA-NEAT \cite{Noble2008} utilizes compositional pattern producing networks (CPPNs) evolved with neuroevolution to model morphogenesis and replication. Grasso et. al
+\cite{GrassoBongard2022} evolves single-resolution NCAs using an evolutionary algorithm
+(EA) and analyzes each cell as individual agents with their own
+sensorimotor loops.
+
+HCAs were introduced by Weimar et. al [29] in 1998 to combine
+mesoscopic and microscopic modeling details with application to
+catalytic reaction on a surface. Kiester et. al \cite{KiesterSahr2008} explores a large-scale
+multi-resolution CA with 3 levels of resolution, using an extensive
+hand-designed ruleset. In 2010, Kroc et. al \cite{Dunn2010} reviewed hierarchical
+CA methods, though optimization for a task was not discussed. Hierarchical neural CA models emerge roughly in 2017; Qin et. al \cite{SchmidtLipson2011}
+propose HCAs which are a combination of cuboid CAs (CCAs) and
+single-layer CAs (SCAs) into an HCA (though they do not use the
+term HCA). In 2023, Pande et. al \cite{Qin2018} explores parent-child 2-scale
+HNCA architectures, though did not investigate morphogenesis
+and homeostasis dynamics. All of these HCA rulesets have either
+been hand-designed or optimized with gradient descent; here we
+optimize with an evolutionary algorithm (EA).
+
+Evolving HNCAs may, in the future, let us examine the evolutionary dynamics of multiscale systems in general and could contribute
+to validation of theories about Hierarchical selection \cite{Goertzel1992,Palm2022}. Hierarchical selection posits that selection occurs at multiple scales at
+once. This could be explicitly modeled, evolved, and analyzed in
+our system. The theory that evolution exploits hierarchical communication to avoid the intractable connection costs required to
+coordinate large-scale structure in a flat system \cite{BullmoreSporns2012,MooreCao2008} might also
+be probed with our approach.

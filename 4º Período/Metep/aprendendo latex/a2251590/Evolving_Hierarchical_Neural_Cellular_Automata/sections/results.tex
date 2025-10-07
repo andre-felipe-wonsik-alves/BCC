@@ -1,0 +1,40 @@
+{\section{Results}
+Here we show that constraining a multi-resolution NCA into a
+hierarchically integrative structure enables the system to achieve higher fitness on a shape-matching and homeostasis task than nonhierarchical NCAs. We also show that explicit selection for higherorder/lower-resolution structures can result in varying fitness for
+similar tasks.
+\Needspace{0.45\textheight}
+\begin{strip}
+  \centering
+  \includegraphics[width=\linewidth]{assets/figures/comparations.png}
+  \captionof{figure}{Evolvability of HNCA compared to the control (non-hierarchical NCAs). (a-c): average loss across 20 trials for 1-layer non-hierarchical NCA (blue), 2-layer, 3-layer, and 4-layer hierarchical NCAs (orange, green, red) selected for square (a), diamond (b), and hollow circle (c) shape-matching. (d-f): strip plots of the loss for the top-fitness NCAs of all 20 independent trials at generation 2000 (y-axis) for 1 (blue), 2 (orange), 3 (green), and 4-layer (red) NCAs. Each of (d-f) matches the shape of the (a-c) above it.}
+  \label{fig:results_comparations}
+\end{strip}
+
+\subsection{Hierarchical structure achieves higher fitness}
+Figure \ref{fig:results_comparations} shows the shape-matching ability of 1, 2, 3, and 4-layer
+HNCAs where loss is evaluated at the lowest layer (64x64) for each
+shape. Importantly, the comparisons in Figure \ref{fig:results_comparations} comparisons aren’t
+quite fair - each additional level fundamentally extends the model,
+adding to the model’s computational capacity. Thus we compare
+the performance of HNCAs to analogous NCAs with equivalent
+computational capacity which are not explicitly hierarchical to
+determine the hierarchical structure’s impact on the fitness of these
+systems. In Figure \ref{fig:hnca_vs_nca} we show that the HNCA outperforms the
+control NCA in several cases
+
+\subsection{Hierarchical selection}
+To explore the idea of hierarchical selection, we evaluated the shapematching phenotypes of individual HNCAs at varying levels of
+resolution. In these experiments, for each shape, we ran 4 separate
+treatments where selection occurred at the 4 levels of resolution
+previously discussed. Figure \ref{fig:target_shape} shows the target shapes for each
+level of resolution for each of the 4 shapes.
+
+In Figure \ref{fig:average_evolutionary}, the highest-fitness individuals which were selected
+at the different levels of the hierarchy vary in their ability to perform the task at their level. For the square, the populations which
+were selected at every level below the topmost level were more
+fit than those whose phenotypes were evaluated at layer 4 (8x8
+resolution). For the diamond shape, the results are similar. In both
+of these cases (square and diamond), selection at the lowest layer
+appears to perform best. In contrast, when matching to the hollow
+circle, HNCAs selected at the highest level outperformed the HNCA
+selected at the lower levels.

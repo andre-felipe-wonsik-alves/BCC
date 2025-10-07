@@ -1,0 +1,64 @@
+\section{Discussion}
+Figures \ref{fig:results_comparations}a-b and \ref{fig:hnca_vs_nca} clearly show that the addition of information integrating layers on top of a base layer of NCA cells can significantly improve evolutionary fitness. This result is not uniform, however; shape-matching to a hollow circle (arguably a more complex shape) does not appear to benefit from additional layers beyond 2, and the addition of a third and fourth layer appears to hurt the system’s performance. This may suggest there is an "optimal" amount of hierarchal organization for particular tasks.
+\begin{strip}
+  \centering
+  \includegraphics[width=1\textwidth]{assets/figures/hnca_vs_nca.png}
+  \captionof{figure}{Comparison of HNCAs with non-hierarchical control NCAs. a) Control setup. Each $N$-layer hierarchical system is compared to a control with $N$ grids with equivalent resolution to the hierarchical setup, except the up/down connections are randomized to connect to a random offset on a random layer. b) Each column shows the control comparison for 2, 3, and 4 layers for a given shape (at the top of the column).}
+  \label{fig:hnca_vs_nca}
+
+  \includegraphics[width=1\textwidth]{assets/figures/average_fitness.png}
+  \captionof{figure}{Average evolutionary fitness (over 20 trials) for selection at various levels of resolution for each shape. Here we
+present the y-axis as the proportion of cells correct.}
+  \label{fig:average_evolutionary}
+\end{strip}
+
+
+The control comparisons in Figure \ref{fig:hnca_vs_nca} shows hierarchical multilayer systems compared to non-hierarchical systems with the same number of grid cells and of equal computational power. When matching to the square or diamond shapes, the HNCAs consistently outperform the non-hierarchical NCAs. There is no significant difference between the two architectures matching to the hollow circle beyond 2 layers, suggesting the hierarchical expansion is not always beneficial, though there is no evidence it is harmful. 
+
+Figure \ref{fig:average_evolutionary} displays the results from 4-layer systems where phenotype evaluation was performed at varying levels of the structure hierarchy. When selecting for a square shape, selection at lower levels (64x64, 32x32, 16x16) always outperforms selection at the highest level (8x8). When selecting for a diamond shape, there is relatively little difference between selection at levels 1-3, but selection at the highest level (8x8) harms evolutionary fitness. In contrast, when matching to a hollow circle, HNCAs benefit greatly from
+selection at the highest level compared to the other levels. The theory of "hierarchical selection" suggests evolutionary pressures are exerted at multiple scales to varying degrees \cite{Goertzel1992}. Our results align
+with this hypothesis and suggest that perhaps if selection pressures in a niche are concentrated at a particular scale, systems may be incentivized to form and complexify structures at that scale. As an
+example, the fitness of an individual human is highly dependent on groups (a higher-order structure) they are part of; therefore there is pressure on individuals to form prosocial relationships for
+
+
+\begin{strip}
+  \centering
+  \includegraphics[width=1\textwidth]{assets/figures/hnca_development.png}
+  \captionof{figure}{Comparison of HNCAs with non-hierarchical control NCAs. a) Control setup. Each $N$-layer hierarchical system is compared to a control with $N$ grids with equivalent resolution to the hierarchical setup, except the up/down connections are randomized to connect to a random offset on a random layer. b) Each column shows the control comparison for 2, 3, and 4 layers for a given shape (at the top of the column).}
+  \label{fig:fig7}
+
+  \includegraphics[width=1\textwidth]{assets/figures/hnca_development_fenotype.png}
+  \captionof{figure}{Average evolutionary fitness (over 20 trials) for selection at various levels of resolution for each shape. Here we
+present the y-axis as the proportion of cells correct.}
+  \label{fig:fig8}
+\end{strip}
+a more fit group. These results reinforce longstanding ideas from evolutionary theory, and perhaps HNCAs may serve as a viable platform for further investigation of these ideas. 
+
+Figure \ref{fig:fig7} shows 12 highly fit HNCAs developing. Interesting temporal dynamics can emerge, where bodies which roughly match the phenotype form and then move around the grid (e.g. Figure \ref{fig:fig7} row 3, blue). Since phenotypes are evaluated at timestep 100, these moving phenotypes appear to get lucky to have ended up in their target zone. Many phenotypes seem to grow and maintain a shape in the center of the target shape (Figure \ref{fig:fig7} row 2-4, red and green), achieving what appears to be homeostatic behavior. 
+
+Figure \ref{fig:fig8} offers an intuition for how these systems can behave over time and scale. Various communication and structural patterns emerge at different scales, and their interactions culminate in the expression of the phenotype. High-level patterns seem to propagate across scales even though they are not directly connected in the HNCA architecture (middle panel, Figure \ref{fig:fig8}). The right-hand panel of Figure \ref{fig:fig8} shows the system forming a kind of membrane where information processing dynamics look fundamentally different on the inside of the target shape and on the outside. This membrane-like periphery appears relatively stable over time as well, showing little significant change from timestep 50 to timestep 100. Additionally, the low-level body seems to form membrane-like state patterns, where the center of the body at 64x64 resolution is largely uniform but there is fluctuation on the periphery, again perhaps regulated by higher levels. 
+
+Future lesion studies are planned to investigate what effect (if any) cells in these levels not experiencing direct selection pressure are having on the cells in the layer that is, and how they are doing so.
+
+\subsection{Future Work}
+Because HNCAs couple lower-order structures with higher-order structures in an explicit way, part-whole relationships become easier to analyze in such a model. For example, a question like “what is
+an individual component’s capacity to affect the state of the higherorder structure it is a constituent of?” could be investigated byapplying information theoretic analyses \cite{WeimarNA} to evolved HNCAs.
+
+One can also view an individual cell in a CA as an autonomous agent: it integrates sensory information from its local same-level environment as well as from its parent and subsidiary structures,
+and it employs this information to perform an action which in turn affects its neighboring agents. One route to rendering an HNCA a more detailed model of biological hierarchy would be to make
+this sensorimotor loop more complex by broadening the incoming sensory information, adding more complex internal state, and increasing the variety of possible actions. 
+
+Recent work \cite{GrassoBongard2022} has shown that incorporating a secondary fitness objective such as empowerment \cite{Klyubin2005}—the ability to repeatedly
+take diverse actions and obtain consistent sensory results—into an evolutionary algorithm can increase the ability to evolve NCAs to achieve the primary fitness objective. A cell in such ‘empowered’
+NCAs can be viewed as having a more complex goal than one from a non-empowered NCA: the cell strives to cooperate with its neighbors to achieve a collective task, but also to gain control over their
+responses to its actions. This view yields a new set of questions that could be investigated with HNCAs. Could the overall behavior of an HNCA be improved if cells at different scales had different,
+competing, similar, or synergistic goals? Might this generate new hypotheses about how components in biological hierarchies yield overall useful behavior, even if those components do not always
+share the same goals? 
+
+Biological realism is another direction one could pursue to extend this work. Real biological systems occupy a continuous 3d-dimensional space, cells’ positions aren’t fixed, the morphology of higher-order structures are not fixed—looking at these gaps may motivate loosening constraints in the model. For example, the imposed square grid structure presented here is arbitrary and unrealistic.
+Allowing the imposed structure to emerge and evolve on the developmental or evolutionary timescale (or both) might provide the whole system new degrees of freedom crucial for the morphogenesis process. Additionally, in our model, two higher-order structures are forced to use the same neural network to behave, but, like e.g. a heart and a liver, they may perform vastly different functions.
+This might be better justified at a smaller scale (e.g. biological cells) with a complex enough neural network, but diverse morphologies at larger scales may be better equipped with diverse controllers.
+
+Finally, these results could facilitate the development of technological rather than biological hierarchies, such as fractal robots \cite{Levin2021}: machines built from machines. Intuitively, the faster route to
+creating a large, complex machine like a robot would be to build it from components which are themselves intelligent rather than from inert materials. But exactly how to do this, and specifically
+how hierarchies of robots should communicate with one another, remains unexplored.
