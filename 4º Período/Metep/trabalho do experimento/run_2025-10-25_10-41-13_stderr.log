@@ -1,0 +1,6 @@
+/home/a2251590/hierarchical-cellular-automata/simulation.py:230: NumbaPendingDeprecationWarning: Code using Numba extension API maybe depending on 'old_style' error-capturing, which is deprecated and will be replaced by 'new_style' in a future release. See details at https://numba.readthedocs.io/en/latest/reference/deprecation.html#deprecation-of-old-style-numba-captured-errors
+Exception origin:
+  File "/home/a2251590/micromamba/envs/hca-cuda11/lib/python3.10/pprint.py", line 386, in _format_dict_items
+    write(': ')
+
+  update_cell_no_noise(num_layers, layer, phenotypes, state_genotypes, around_start, above_start, pop_idx, step, row, col, above_map, below_map)
