@@ -10,26 +10,16 @@ using namespace std;
 int main()
 {
     vector<int> v = {5, 6, 8, 1, 3};
-    int left = std::distance(v.begin(), v.begin());
-    int right = std::distance(v.begin(), v.end()) - 1;
 
-    IAlgoritmo *selection = new SelectionSort();
-    IAlgoritmo *bubble = new BubbleSort();
-    IAlgoritmo *insertion = new InsertionSort();
-    IAlgoritmo *merge = new MergeSort();
-    IAlgoritmo *quick = new QuickSort();
+    BubbleSort *bubble = new BubbleSort();
+    SelectionSort *selec = new SelectionSort();
+    InsertionSort *insert = new InsertionSort();
+    QuickSort *quick = new QuickSort();
 
-    selection->sort(v);
-    bubble->sort(v);
-    insertion->sort(v);
-    merge->sort(v, left, right);
-    quick->sort(v, left, right);
+    bubble->decrescent_sort(v);
+    selec->decrescent_sort(v);
 
-    delete selection;
-    delete bubble;
-    delete insertion;
-    delete merge;
-    delete quick;
-
+    insert->sort(v);
+    quick->sort(v, 0, v.size() - 1);
     return 0;
 }

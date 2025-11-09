@@ -8,6 +8,7 @@ class InsertionSort : public IAlgoritmo
 {
 public:
     void sort(std::vector<int> &vec) override;
+    void decrescent_sort(std::vector<int> &vec);
 
 private:
     void insertion(std::vector<int> &vec, int k);

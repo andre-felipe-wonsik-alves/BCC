@@ -12,6 +12,7 @@ void MergeSort::merge(std::vector<int> &v, int left, int mid, int right)
             temp.push_back(v[i++]);
         else
             temp.push_back(v[j++]);
+        // CAPTURARIA AS INVERSÕES AQUI!
     }
     while (i <= mid)
         temp.push_back(v[i++]);
@@ -26,6 +27,11 @@ void MergeSort::sort(std::vector<int> &vec, int left, int right)
 {
     if (left >= right)
         return;
+
+    if (vec[left] > vec[right])
+    {
+        std::swap(vec[left], vec[right]);
+    }
 
     int mid = left + (right - left) / 2;
 

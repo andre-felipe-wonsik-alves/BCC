@@ -24,3 +24,14 @@ int SelectionSort::max_in_range(const std::vector<int> &vec, int inicio, int fim
     }
     return maior;
 }
+
+void SelectionSort::decrescent_sort(std::vector<int> &vec)
+{
+    int maior;
+    for (int i = 0; i < vec.size() - 1; i++)
+    {
+        maior = max_in_range(vec, i, vec.size() - 1);
+        std::swap(vec[maior], vec[i]);
+    }
+    this->print(vec, "Selection Sort decrescente");
+}

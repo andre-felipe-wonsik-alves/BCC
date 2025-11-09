@@ -9,6 +9,7 @@ class SelectionSort : public IAlgoritmo
 public:
     void sort(std::vector<int> &vec) override;
     int max_in_range(const std::vector<int> &vec, int inicio, int fim);
+    void decrescent_sort(std::vector<int> &vec);
 };
 
 #endif

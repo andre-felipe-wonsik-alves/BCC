@@ -8,6 +8,7 @@ class BubbleSort : public IAlgoritmo
 {
 public:
     void sort(std::vector<int> &vec) override;
+    void decrescent_sort(std::vector<int> &vec);
 };
 
 #endif
